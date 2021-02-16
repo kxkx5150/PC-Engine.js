@@ -1,2 +1,15 @@
 # PC-Engine.js
 PC Engine Javascript Emulator 
+
+勉強用にyhzmr442氏のjspceを参考にしています。
+
+<br><br><br>
+
+
+
+jspce  
+https://github.com/yhzmr442/jspce
+
+実装も凄まじくソースも非常にわかりやすいです。  
+自作のtest romとアセンブラソースあり。  
+NES エミュのFaithJSの方と並ぶ凄まじさ。
