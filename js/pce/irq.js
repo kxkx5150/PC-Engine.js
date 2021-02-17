@@ -4,6 +4,7 @@ class IRQ {
     this.TIQFlag = 0x04;
     this.IRQ1Flag = 0x02;
     this.IRQ2Flag = 0x01;
+    this.INTTIQ = 0x00;
     this.INTIRQ2 = 0x00;
     this.IntDisableRegister = 0x00; 
   }
@@ -34,6 +35,7 @@ class IRQ {
     this.TIQFlag = 0x04;
     this.IRQ1Flag = 0x02;
     this.IRQ2Flag = 0x01;
+    this.INTTIQ = 0x00;
     this.INTIRQ2 = 0x00;
     this.IntDisableRegister = 0x00; 
   }

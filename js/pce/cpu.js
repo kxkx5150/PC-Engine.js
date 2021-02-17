@@ -1,5 +1,5 @@
 class CPU {
-  constructor(core,mem) {
+  constructor(core, mem) {
     this.Core = core;
     this.mem = mem;
     this.A = 0;
@@ -27,7 +27,7 @@ class CPU {
     this.TransferDist = 0;
     this.TransferLen = 0;
     this.TransferAlt = 0;
-    
+
     this.NZCacheTable = new Array(0x100).fill(0x00);
     this.NZCacheTable = this.NZCacheTable.map((d, i) => {
       return i & 0x80;
@@ -49,7 +49,7 @@ class CPU {
       7,
       5,
       7,
-      6, // 0x00
+      6,
       2,
       7,
       7,
@@ -65,7 +65,7 @@ class CPU {
       7,
       5,
       7,
-      6, // 0x10
+      6,
       7,
       7,
       3,
@@ -81,7 +81,7 @@ class CPU {
       5,
       5,
       7,
-      6, // 0x20
+      6,
       2,
       7,
       7,
@@ -97,7 +97,7 @@ class CPU {
       5,
       5,
       7,
-      6, // 0x30
+      6,
       7,
       7,
       3,
@@ -113,7 +113,7 @@ class CPU {
       4,
       5,
       7,
-      6, // 0x40
+      6,
       2,
       7,
       7,
@@ -129,7 +129,7 @@ class CPU {
       2,
       5,
       7,
-      6, // 0x50
+      6,
       7,
       7,
       2,
@@ -145,7 +145,7 @@ class CPU {
       7,
       5,
       7,
-      6, // 0x60
+      6,
       2,
       7,
       7,
@@ -161,7 +161,7 @@ class CPU {
       7,
       5,
       7,
-      6, // 0x70
+      6,
       4,
       7,
       2,
@@ -177,7 +177,7 @@ class CPU {
       5,
       5,
       5,
-      6, // 0x80
+      6,
       2,
       7,
       7,
@@ -193,7 +193,7 @@ class CPU {
       5,
       5,
       5,
-      6, // 0x90
+      6,
       2,
       7,
       2,
@@ -209,7 +209,7 @@ class CPU {
       5,
       5,
       5,
-      6, // 0xA0
+      6,
       2,
       7,
       7,
@@ -225,7 +225,7 @@ class CPU {
       5,
       5,
       5,
-      6, // 0xB0
+      6,
       2,
       7,
       2,
@@ -241,39 +241,7 @@ class CPU {
       5,
       5,
       7,
-      6, // 0xC0
-      2,
-      7,
-      7,
-      0,
-      2,
-      4,
       6,
-      7,
-      2,
-      5,
-      3,
-      2,
-      2,
-      5,
-      7,
-      6, // 0xD0
-      2,
-      7,
-      2,
-      0,
-      4,
-      4,
-      6,
-      7,
-      2,
-      2,
-      2,
-      2,
-      5,
-      5,
-      7,
-      6, // 0xE0
       2,
       7,
       7,
@@ -290,7 +258,39 @@ class CPU {
       5,
       7,
       6,
-    ]; //0xF0
+      2,
+      7,
+      2,
+      0,
+      4,
+      4,
+      6,
+      7,
+      2,
+      2,
+      2,
+      2,
+      5,
+      5,
+      7,
+      6,
+      2,
+      7,
+      7,
+      0,
+      2,
+      4,
+      6,
+      7,
+      2,
+      5,
+      3,
+      2,
+      2,
+      5,
+      7,
+      6,
+    ];
     this.OpBytes = [
       0,
       2,
@@ -307,7 +307,7 @@ class CPU {
       3,
       3,
       3,
-      0, // 0x00
+      0,
       0,
       2,
       2,
@@ -323,7 +323,7 @@ class CPU {
       3,
       3,
       3,
-      0, // 0x10
+      0,
       0,
       2,
       1,
@@ -339,7 +339,7 @@ class CPU {
       3,
       3,
       3,
-      0, // 0x20
+      0,
       0,
       2,
       2,
@@ -355,7 +355,7 @@ class CPU {
       3,
       3,
       3,
-      0, // 0x30
+      0,
       0,
       2,
       1,
@@ -371,7 +371,7 @@ class CPU {
       0,
       3,
       3,
-      0, // 0x40
+      0,
       0,
       2,
       2,
@@ -387,7 +387,7 @@ class CPU {
       1,
       3,
       3,
-      0, // 0x50
+      0,
       0,
       2,
       1,
@@ -403,7 +403,7 @@ class CPU {
       0,
       3,
       3,
-      0, // 0x60
+      0,
       0,
       2,
       2,
@@ -419,7 +419,7 @@ class CPU {
       0,
       3,
       3,
-      0, // 0x70
+      0,
       0,
       2,
       1,
@@ -435,39 +435,7 @@ class CPU {
       3,
       3,
       3,
-      0, // 0x80
       0,
-      2,
-      2,
-      4,
-      2,
-      2,
-      2,
-      2,
-      1,
-      3,
-      1,
-      1,
-      3,
-      3,
-      3,
-      0, // 0x90
-      2,
-      2,
-      2,
-      3,
-      2,
-      2,
-      2,
-      2,
-      1,
-      2,
-      1,
-      1,
-      3,
-      3,
-      3,
-      0, // 0xA0
       0,
       2,
       2,
@@ -483,7 +451,39 @@ class CPU {
       3,
       3,
       3,
-      0, // 0xB0
+      0,
+      2,
+      2,
+      2,
+      3,
+      2,
+      2,
+      2,
+      2,
+      1,
+      2,
+      1,
+      1,
+      3,
+      3,
+      3,
+      0,
+      0,
+      2,
+      2,
+      4,
+      2,
+      2,
+      2,
+      2,
+      1,
+      3,
+      1,
+      1,
+      3,
+      3,
+      3,
+      0,
       2,
       2,
       1,
@@ -499,39 +499,7 @@ class CPU {
       3,
       3,
       3,
-      0, // 0xC0
       0,
-      2,
-      2,
-      0,
-      1,
-      2,
-      2,
-      2,
-      1,
-      3,
-      1,
-      1,
-      1,
-      3,
-      3,
-      0, // 0xD0
-      2,
-      2,
-      1,
-      0,
-      2,
-      2,
-      2,
-      2,
-      1,
-      2,
-      1,
-      1,
-      3,
-      3,
-      3,
-      0, // 0xE0
       0,
       2,
       2,
@@ -548,7 +516,39 @@ class CPU {
       3,
       3,
       0,
-    ]; //0xF0
+      2,
+      2,
+      1,
+      0,
+      2,
+      2,
+      2,
+      2,
+      1,
+      2,
+      1,
+      1,
+      3,
+      3,
+      3,
+      0,
+      0,
+      2,
+      2,
+      0,
+      1,
+      2,
+      2,
+      2,
+      1,
+      3,
+      1,
+      1,
+      1,
+      3,
+      3,
+      0,
+    ];
   }
   CPUReset() {
     this.TransferSrc = 0;
@@ -581,21 +581,18 @@ class CPU {
     if (tmp != 0x00 && this.TransferLen == 0) {
       this.LastInt = 0x00;
       if ((tmp & this.Core.irq.TIQFlag) == this.Core.irq.TIQFlag) {
-        //TIQ
         this.Push(this.PCH());
         this.Push(this.PCL());
         this.Push(this.P);
         this.P = 0x04;
         this.PC = this.mem.Get16(0xfffa);
       } else if ((tmp & this.Core.irq.IRQ1Flag) == this.Core.irq.IRQ1Flag) {
-        //IRQ1
         this.Push(this.PCH());
         this.Push(this.PCL());
         this.Push(this.P);
         this.P = 0x04;
         this.PC = this.mem.Get16(0xfff8);
       } else if ((tmp & this.Core.irq.IRQ2Flag) == this.Core.irq.IRQ2Flag) {
-        //IRQ2
         this.Push(this.PCH());
         this.Push(this.PCL());
         this.Push(this.P);
@@ -605,341 +602,335 @@ class CPU {
       this.ProgressClock = 8 * this.CPUBaseClock;
     } else {
       let op = this.mem.Get(this.PC);
-      // console.log(this.PC.toString(16));
       this.OpExec(op);
     }
   }
   OpExec(op) {
-    let address;
-    let tmp;
-    let data;
-    let bit;
-    let i;
     switch (op) {
-      case 0x69: // ADC IMM
+      case 0x69:
         this.ADC(this.PC + 1);
         break;
-      case 0x65: // ADC ZP
+      case 0x65:
         this.ADC(this.ZP());
         break;
-      case 0x75: // ADC ZP, X
+      case 0x75:
         this.ADC(this.ZP_X());
         break;
-      case 0x72: // ADC (IND)
+      case 0x72:
         this.ADC(this.IND());
         break;
-      case 0x61: // ADC (IND, X)
+      case 0x61:
         this.ADC(this.IND_X());
         break;
-      case 0x71: // ADC (IND), Y
+      case 0x71:
         this.ADC(this.IND_Y());
         break;
-      case 0x6d: // ADC ABS
+      case 0x6d:
         this.ADC(this.ABS());
         break;
-      case 0x7d: // ADC ABS, X
+      case 0x7d:
         this.ADC(this.ABS_X());
         break;
-      case 0x79: // ADC ABS, Y
+      case 0x79:
         this.ADC(this.ABS_Y());
         break;
-      case 0xe9: // SBC IMM
+      case 0xe9:
         this.SBC(this.PC + 1);
         break;
-      case 0xe5: // SBC ZP
+      case 0xe5:
         this.SBC(this.ZP());
         break;
-      case 0xf5: // SBC ZP, X
+      case 0xf5:
         this.SBC(this.ZP_X());
         break;
-      case 0xf2: // SBC (IND)
+      case 0xf2:
         this.SBC(this.IND());
         break;
-      case 0xe1: // SBC (IND, X)
+      case 0xe1:
         this.SBC(this.IND_X());
         break;
-      case 0xf1: // SBC (IND), Y
+      case 0xf1:
         this.SBC(this.IND_Y());
         break;
-      case 0xed: // SBC ABS
+      case 0xed:
         this.SBC(this.ABS());
         break;
-      case 0xfd: // SBC ABS, X
+      case 0xfd:
         this.SBC(this.ABS_X());
         break;
-      case 0xf9: // SBC ABS, Y
+      case 0xf9:
         this.SBC(this.ABS_Y());
         break;
-      case 0x29: // AND IMM
+      case 0x29:
         this.AND(this.PC + 1);
         break;
-      case 0x25: // AND ZP
+      case 0x25:
         this.AND(this.ZP());
         break;
-      case 0x35: // AND ZP, X
+      case 0x35:
         this.AND(this.ZP_X());
         break;
-      case 0x32: // AND (IND)
+      case 0x32:
         this.AND(this.IND());
         break;
-      case 0x21: // AND (IND, X)
+      case 0x21:
         this.AND(this.IND_X());
         break;
-      case 0x31: // AND (IND), Y
+      case 0x31:
         this.AND(this.IND_Y());
         break;
-      case 0x2d: // AND ABS
+      case 0x2d:
         this.AND(this.ABS());
         break;
-      case 0x3d: // AND ABS, X
+      case 0x3d:
         this.AND(this.ABS_X());
         break;
-      case 0x39: // AND ABS, Y
+      case 0x39:
         this.AND(this.ABS_Y());
         break;
-      case 0x49: // EOR IMM
+      case 0x49:
         this.EOR(this.PC + 1);
         break;
-      case 0x45: // EOR ZP
+      case 0x45:
         this.EOR(this.ZP());
         break;
-      case 0x55: // EOR ZP, X
+      case 0x55:
         this.EOR(this.ZP_X());
         break;
-      case 0x52: // EOR (IND)
+      case 0x52:
         this.EOR(this.IND());
         break;
-      case 0x41: // EOR (IND, X)
+      case 0x41:
         this.EOR(this.IND_X());
         break;
-      case 0x51: // EOR (IND), Y
+      case 0x51:
         this.EOR(this.IND_Y());
         break;
-      case 0x4d: // EOR ABS
+      case 0x4d:
         this.EOR(this.ABS());
         break;
-      case 0x5d: // EOR ABS, X
+      case 0x5d:
         this.EOR(this.ABS_X());
         break;
-      case 0x59: // EOR ABS, Y
+      case 0x59:
         this.EOR(this.ABS_Y());
         break;
-      case 0x09: // ORA IMM
+      case 0x09:
         this.ORA(this.PC + 1);
         break;
-      case 0x05: // ORA ZP
+      case 0x05:
         this.ORA(this.ZP());
         break;
-      case 0x15: // ORA ZP, X
+      case 0x15:
         this.ORA(this.ZP_X());
         break;
-      case 0x12: // ORA (IND)
+      case 0x12:
         this.ORA(this.IND());
         break;
-      case 0x01: // ORA (IND, X)
+      case 0x01:
         this.ORA(this.IND_X());
         break;
-      case 0x11: // ORA (IND), Y
+      case 0x11:
         this.ORA(this.IND_Y());
         break;
-      case 0x0d: // ORA ABS
+      case 0x0d:
         this.ORA(this.ABS());
         break;
-      case 0x1d: // ORA ABS, X
+      case 0x1d:
         this.ORA(this.ABS_X());
         break;
-      case 0x19: // ORA ABS, Y
+      case 0x19:
         this.ORA(this.ABS_Y());
         break;
-      case 0x06: // ASL ZP
-        address = this.ZP();
+      case 0x06:
+        var address = this.ZP();
         this.mem.Set(address, this.ASL(this.mem.Get(address)));
         break;
-      case 0x16: // ASL ZP, X
-        address = this.ZP_X();
+      case 0x16:
+        var address = this.ZP_X();
         this.mem.Set(address, this.ASL(this.mem.Get(address)));
         break;
-      case 0x0e: // ASL ABS
-        address = this.ABS();
+      case 0x0e:
+        var address = this.ABS();
         this.mem.Set(address, this.ASL(this.mem.Get(address)));
         break;
-      case 0x1e: // ASL ABS, X
-        address = this.ABS_X();
+      case 0x1e:
+        var address = this.ABS_X();
         this.mem.Set(address, this.ASL(this.mem.Get(address)));
         break;
-      case 0x0a: // ASL A
+      case 0x0a:
         this.A = this.ASL(this.A);
         break;
-      case 0x46: // LSR ZP
-        address = this.ZP();
+      case 0x46:
+        var address = this.ZP();
         this.mem.Set(address, this.LSR(this.mem.Get(address)));
         break;
-      case 0x56: // LSR ZP, X
-        address = this.ZP_X();
+      case 0x56:
+        var address = this.ZP_X();
         this.mem.Set(address, this.LSR(this.mem.Get(address)));
         break;
-      case 0x4e: // LSR ABS
-        address = this.ABS();
+      case 0x4e:
+        var address = this.ABS();
         this.mem.Set(address, this.LSR(this.mem.Get(address)));
         break;
-      case 0x5e: // LSR ABS, X
-        address = this.ABS_X();
+      case 0x5e:
+        var address = this.ABS_X();
         this.mem.Set(address, this.LSR(this.mem.Get(address)));
         break;
-      case 0x4a: // LSR A
+      case 0x4a:
         this.A = this.LSR(this.A);
         break;
-      case 0x26: // ROL ZP
-        address = this.ZP();
+      case 0x26:
+        var address = this.ZP();
         this.mem.Set(address, this.ROL(this.mem.Get(address)));
         break;
-      case 0x36: // ROL ZP, X
-        address = this.ZP_X();
+      case 0x36:
+        var address = this.ZP_X();
         this.mem.Set(address, this.ROL(this.mem.Get(address)));
         break;
-      case 0x2e: // ROL ABS
-        address = this.ABS();
+      case 0x2e:
+        var address = this.ABS();
         this.mem.Set(address, this.ROL(this.mem.Get(address)));
         break;
-      case 0x3e: // ROL ABS, X
-        address = this.ABS_X();
+      case 0x3e:
+        var address = this.ABS_X();
         this.mem.Set(address, this.ROL(this.mem.Get(address)));
         break;
-      case 0x2a: // ROL A
+      case 0x2a:
         this.A = this.ROL(this.A);
         break;
-      case 0x66: // ROR ZP
-        address = this.ZP();
+      case 0x66:
+        var address = this.ZP();
         this.mem.Set(address, this.ROR(this.mem.Get(address)));
         break;
-      case 0x76: // ROR ZP, X
-        address = this.ZP_X();
+      case 0x76:
+        var address = this.ZP_X();
         this.mem.Set(address, this.ROR(this.mem.Get(address)));
         break;
-      case 0x6e: // ROR ABS
-        address = this.ABS();
+      case 0x6e:
+        var address = this.ABS();
         this.mem.Set(address, this.ROR(this.mem.Get(address)));
         break;
-      case 0x7e: // ROR ABS, X
-        address = this.ABS_X();
+      case 0x7e:
+        var address = this.ABS_X();
         this.mem.Set(address, this.ROR(this.mem.Get(address)));
         break;
-      case 0x6a: // ROR A
+      case 0x6a:
         this.A = this.ROR(this.A);
         break;
-      case 0x0f: // BBR0
+      case 0x0f:
         this.BBRi(0);
         break;
-      case 0x1f: // BBR1
+      case 0x1f:
         this.BBRi(1);
         break;
-      case 0x2f: // BBR2
+      case 0x2f:
         this.BBRi(2);
         break;
-      case 0x3f: // BBR3
+      case 0x3f:
         this.BBRi(3);
         break;
-      case 0x4f: // BBR4
+      case 0x4f:
         this.BBRi(4);
         break;
-      case 0x5f: // BBR5
+      case 0x5f:
         this.BBRi(5);
         break;
-      case 0x6f: // BBR6
+      case 0x6f:
         this.BBRi(6);
         break;
-      case 0x7f: // BBR7
+      case 0x7f:
         this.BBRi(7);
         break;
-      case 0x8f: // BBS0
+      case 0x8f:
         this.BBSi(0);
         break;
-      case 0x9f: // BBS1
+      case 0x9f:
         this.BBSi(1);
         break;
-      case 0xaf: // BBS2
+      case 0xaf:
         this.BBSi(2);
         break;
-      case 0xbf: // BBS3
+      case 0xbf:
         this.BBSi(3);
         break;
-      case 0xcf: // BBS4
+      case 0xcf:
         this.BBSi(4);
         break;
-      case 0xdf: // BBS5
+      case 0xdf:
         this.BBSi(5);
         break;
-      case 0xef: // BBS6
+      case 0xef:
         this.BBSi(6);
         break;
-      case 0xff: // BBS7
+      case 0xff:
         this.BBSi(7);
         break;
-      case 0x90: // BCC
+      case 0x90:
         this.Branch((this.P & this.CFlag) == 0x00, 1);
         break;
-      case 0xb0: // BCS
+      case 0xb0:
         this.Branch((this.P & this.CFlag) == this.CFlag, 1);
         break;
-      case 0xd0: // BNE
+      case 0xd0:
         this.Branch((this.P & this.ZFlag) == 0x00, 1);
         break;
-      case 0xf0: // BEQ
+      case 0xf0:
         this.Branch((this.P & this.ZFlag) == this.ZFlag, 1);
         break;
-      case 0x10: // BPL
+      case 0x10:
         this.Branch((this.P & this.NFlag) == 0x00, 1);
         break;
-      case 0x30: // BMI
+      case 0x30:
         this.Branch((this.P & this.NFlag) == this.NFlag, 1);
         break;
-      case 0x50: // BVC
+      case 0x50:
         this.Branch((this.P & this.VFlag) == 0x00, 1);
         break;
-      case 0x70: // BVS
+      case 0x70:
         this.Branch((this.P & this.VFlag) == this.VFlag, 1);
         break;
-      case 0x80: // BRA
+      case 0x80:
         this.Branch(true, 1);
         break;
-      case 0x44: // BSR
+      case 0x44:
         this.PC++;
         this.Push(this.PCH());
         this.Push(this.PCL());
         this.Branch(true, 0);
         break;
-      case 0x20: // JSR ABS
-        tmp = this.ABS();
+      case 0x20:
+        var tmp = this.ABS();
         this.PC += 2;
         this.Push(this.PCH());
         this.Push(this.PCL());
         this.PC = tmp;
         this.ClearTFlag();
         break;
-      case 0x40: // RTI
+      case 0x40:
         this.P = this.Pull();
         this.toPCL(this.Pull());
         this.toPCH(this.Pull());
         break;
-      case 0x60: // RTS
+      case 0x60:
         this.ClearTFlag();
         this.toPCL(this.Pull());
         this.toPCH(this.Pull());
         this.PC++;
         break;
-      case 0x4c: // JMP ABS
+      case 0x4c:
         this.PC = this.ABS();
         this.ClearTFlag();
         break;
-      case 0x6c: // JMP (ABS)
+      case 0x6c:
         this.PC = this.ABS_IND();
         this.ClearTFlag();
         break;
-      case 0x7c: // JMP (ABS, X)
+      case 0x7c:
         this.PC = this.ABS_X_IND();
         this.ClearTFlag();
         break;
-      case 0x00: // BRK
+      case 0x00:
         this.PC += 2;
         this.Push(this.PCH());
         this.Push(this.PCL());
@@ -950,453 +941,453 @@ class CPU {
         this.SetIFlag();
         this.PC = this.mem.Get16(0xfff6);
         break;
-      case 0x62: // CLA
+      case 0x62:
         this.A = 0x00;
         this.ClearTFlag();
         break;
-      case 0x82: // CLX
+      case 0x82:
         this.X = 0x00;
         this.ClearTFlag();
         break;
-      case 0xc2: // CLY
+      case 0xc2:
         this.Y = 0x00;
         this.ClearTFlag();
         break;
-      case 0x18: // CLC
+      case 0x18:
         this.ClearCFlag();
         this.ClearTFlag();
         break;
-      case 0xd8: // CLD
+      case 0xd8:
         this.ClearDFlag();
         this.ClearTFlag();
         break;
-      case 0x58: // CLI
+      case 0x58:
         this.ClearIFlag();
         this.ClearTFlag();
         break;
-      case 0xb8: // CLV
+      case 0xb8:
         this.ClearVFlag();
         this.ClearTFlag();
         break;
-      case 0x38: // SEC
+      case 0x38:
         this.SetCFlag();
         this.ClearTFlag();
         break;
-      case 0xf8: // SED
+      case 0xf8:
         this.SetDFlag();
         this.ClearTFlag();
         break;
-      case 0x78: // SEI
+      case 0x78:
         this.SetIFlag();
         this.ClearTFlag();
         break;
-      case 0xf4: // SET
+      case 0xf4:
         this.SetTFlag();
         break;
-      case 0xc9: // CMP IMM
+      case 0xc9:
         this.Compare(this.A, this.PC + 1);
         break;
-      case 0xc5: // CMP ZP
+      case 0xc5:
         this.Compare(this.A, this.ZP());
         break;
-      case 0xd5: // CMP ZP, X
+      case 0xd5:
         this.Compare(this.A, this.ZP_X());
         break;
-      case 0xd2: // CMP (IND)
+      case 0xd2:
         this.Compare(this.A, this.IND());
         break;
-      case 0xc1: // CMP (IND, X)
+      case 0xc1:
         this.Compare(this.A, this.IND_X());
         break;
-      case 0xd1: // CMP (IND), Y
+      case 0xd1:
         this.Compare(this.A, this.IND_Y());
         break;
-      case 0xcd: // CMP ABS
+      case 0xcd:
         this.Compare(this.A, this.ABS());
         break;
-      case 0xdd: // CMP ABS, X
+      case 0xdd:
         this.Compare(this.A, this.ABS_X());
         break;
-      case 0xd9: // CMP ABS, Y
+      case 0xd9:
         this.Compare(this.A, this.ABS_Y());
         break;
-      case 0xe0: // CPX IMM
+      case 0xe0:
         this.Compare(this.X, this.PC + 1);
         break;
-      case 0xe4: // CPX ZP
+      case 0xe4:
         this.Compare(this.X, this.ZP());
         break;
-      case 0xec: // CPX ABS
+      case 0xec:
         this.Compare(this.X, this.ABS());
         break;
-      case 0xc0: // CPY IMM
+      case 0xc0:
         this.Compare(this.Y, this.PC + 1);
         break;
-      case 0xc4: // CPY ZP
+      case 0xc4:
         this.Compare(this.Y, this.ZP());
         break;
-      case 0xcc: // CPY ABS
+      case 0xcc:
         this.Compare(this.Y, this.ABS());
         break;
-      case 0xc6: // DEC ZP
-        address = this.ZP();
+      case 0xc6:
+        var address = this.ZP();
         this.mem.Set(address, this.Decrement(this.mem.Get(address)));
         break;
-      case 0xd6: // DEC ZP, X
-        address = this.ZP_X();
+      case 0xd6:
+        var address = this.ZP_X();
         this.mem.Set(address, this.Decrement(this.mem.Get(address)));
         break;
-      case 0xce: // DEC ABS
-        address = this.ABS();
+      case 0xce:
+        var address = this.ABS();
         this.mem.Set(address, this.Decrement(this.mem.Get(address)));
         break;
-      case 0xde: // DEC ABS, X
-        address = this.ABS_X();
+      case 0xde:
+        var address = this.ABS_X();
         this.mem.Set(address, this.Decrement(this.mem.Get(address)));
         break;
-      case 0x3a: // DEC A
+      case 0x3a:
         this.A = this.Decrement(this.A);
         break;
-      case 0xca: // DEX
+      case 0xca:
         this.X = this.Decrement(this.X);
         break;
-      case 0x88: // DEY
+      case 0x88:
         this.Y = this.Decrement(this.Y);
         break;
-      case 0xe6: // INC ZP
-        address = this.ZP();
+      case 0xe6:
+        var address = this.ZP();
         this.mem.Set(address, this.Increment(this.mem.Get(address)));
         break;
-      case 0xf6: // INC ZP, X
-        address = this.ZP_X();
+      case 0xf6:
+        var address = this.ZP_X();
         this.mem.Set(address, this.Increment(this.mem.Get(address)));
         break;
-      case 0xee: // INC ABS
-        address = this.ABS();
+      case 0xee:
+        var address = this.ABS();
         this.mem.Set(address, this.Increment(this.mem.Get(address)));
         break;
-      case 0xfe: // INC ABS, X
-        address = this.ABS_X();
+      case 0xfe:
+        var address = this.ABS_X();
         this.mem.Set(address, this.Increment(this.mem.Get(address)));
         break;
-      case 0x1a: // INC A
+      case 0x1a:
         this.A = this.Increment(this.A);
         break;
-      case 0xe8: // INX
+      case 0xe8:
         this.X = this.Increment(this.X);
         break;
-      case 0xc8: // INY
+      case 0xc8:
         this.Y = this.Increment(this.Y);
         break;
-      case 0x48: // PHA
+      case 0x48:
         this.Push(this.A);
         this.ClearTFlag();
         break;
-      case 0x08: // PHP
+      case 0x08:
         this.Push(this.P);
         this.ClearTFlag();
         break;
-      case 0xda: // PHX
+      case 0xda:
         this.Push(this.X);
         this.ClearTFlag();
         break;
-      case 0x5a: // PHY
+      case 0x5a:
         this.Push(this.Y);
         this.ClearTFlag();
         break;
-      case 0x68: // PLA
+      case 0x68:
         this.A = this.Pull();
         this.SetNZFlag(this.A);
         this.ClearTFlag();
         break;
-      case 0x28: // PLP
+      case 0x28:
         this.P = this.Pull();
         break;
-      case 0xfa: // PLX
+      case 0xfa:
         this.X = this.Pull();
         this.SetNZFlag(this.X);
         this.ClearTFlag();
         break;
-      case 0x7a: // PLY
+      case 0x7a:
         this.Y = this.Pull();
         this.SetNZFlag(this.Y);
         this.ClearTFlag();
         break;
-      case 0x07: // RMB0
+      case 0x07:
         this.RMBi(0);
         break;
-      case 0x17: // RMB1
+      case 0x17:
         this.RMBi(1);
         break;
-      case 0x27: // RMB2
+      case 0x27:
         this.RMBi(2);
         break;
-      case 0x37: // RMB3
+      case 0x37:
         this.RMBi(3);
         break;
-      case 0x47: // RMB4
+      case 0x47:
         this.RMBi(4);
         break;
-      case 0x57: // RMB5
+      case 0x57:
         this.RMBi(5);
         break;
-      case 0x67: // RMB6
+      case 0x67:
         this.RMBi(6);
         break;
-      case 0x77: // RMB7
+      case 0x77:
         this.RMBi(7);
         break;
-      case 0x87: // SMB0
+      case 0x87:
         this.SMBi(0);
         break;
-      case 0x97: // SMB1
+      case 0x97:
         this.SMBi(1);
         break;
-      case 0xa7: // SMB2
+      case 0xa7:
         this.SMBi(2);
         break;
-      case 0xb7: // SMB3
+      case 0xb7:
         this.SMBi(3);
         break;
-      case 0xc7: // SMB4
+      case 0xc7:
         this.SMBi(4);
         break;
-      case 0xd7: // SMB5
+      case 0xd7:
         this.SMBi(5);
         break;
-      case 0xe7: // SMB6
+      case 0xe7:
         this.SMBi(6);
         break;
-      case 0xf7: // SMB7
+      case 0xf7:
         this.SMBi(7);
         break;
-      case 0x22: // SAX
-        tmp = this.A;
+      case 0x22:
+        var tmp = this.A;
         this.A = this.X;
         this.X = tmp;
         this.ClearTFlag();
         break;
-      case 0x42: // SAY
-        tmp = this.A;
+      case 0x42:
+        var tmp = this.A;
         this.A = this.Y;
         this.Y = tmp;
         this.ClearTFlag();
         break;
-      case 0x02: // SXY
-        tmp = this.X;
+      case 0x02:
+        var tmp = this.X;
         this.X = this.Y;
         this.Y = tmp;
         this.ClearTFlag();
         break;
-      case 0xaa: // TAX
+      case 0xaa:
         this.X = this.A;
         this.SetNZFlag(this.X);
         this.ClearTFlag();
         break;
-      case 0xa8: // TAY
+      case 0xa8:
         this.Y = this.A;
         this.SetNZFlag(this.Y);
         this.ClearTFlag();
         break;
-      case 0xba: // TSX
+      case 0xba:
         this.X = this.S;
         this.SetNZFlag(this.X);
         this.ClearTFlag();
         break;
-      case 0x8a: // TXA
+      case 0x8a:
         this.A = this.X;
         this.SetNZFlag(this.A);
         this.ClearTFlag();
         break;
-      case 0x9a: // TXS
+      case 0x9a:
         this.S = this.X;
         this.ClearTFlag();
         break;
-      case 0x98: // TYA
+      case 0x98:
         this.A = this.Y;
         this.SetNZFlag(this.A);
         this.ClearTFlag();
         break;
-      case 0x89: // BIT IMM
+      case 0x89:
         this.BIT(this.PC + 1);
         break;
-      case 0x24: // BIT ZP
+      case 0x24:
         this.BIT(this.ZP());
         break;
-      case 0x34: // BIT ZP, X
+      case 0x34:
         this.BIT(this.ZP_X());
         break;
-      case 0x2c: // BIT ABS
+      case 0x2c:
         this.BIT(this.ABS());
         break;
-      case 0x3c: // BIT ABS, X
+      case 0x3c:
         this.BIT(this.ABS_X());
         break;
-      case 0x83: // TST IMM ZP
+      case 0x83:
         this.TST(this.PC + 1, 0x2000 | this.mem.Get(this.PC + 2));
         break;
-      case 0xa3: // TST IMM ZP, X
+      case 0xa3:
         this.TST(this.PC + 1, 0x2000 | ((this.mem.Get(this.PC + 2) + this.X) & 0xff));
         break;
-      case 0x93: // TST IMM ABS
+      case 0x93:
         this.TST(this.PC + 1, this.mem.Get16(this.PC + 2));
         break;
-      case 0xb3: // TST IMM ABS, X
+      case 0xb3:
         this.TST(this.PC + 1, (this.mem.Get16(this.PC + 2) + this.X) & 0xffff);
         break;
-      case 0x14: // TRB ZP
+      case 0x14:
         this.TRB(this.ZP());
         break;
-      case 0x1c: // TRB ABS
+      case 0x1c:
         this.TRB(this.ABS());
         break;
-      case 0x04: // TSB ZP
+      case 0x04:
         this.TSB(this.ZP());
         break;
-      case 0x0c: // TSB ABS
+      case 0x0c:
         this.TSB(this.ABS());
         break;
-      case 0xa9: // LDA IMM
+      case 0xa9:
         this.A = this.Load(this.PC + 1);
         break;
-      case 0xa5: // LDA ZP
+      case 0xa5:
         this.A = this.Load(this.ZP());
         break;
-      case 0xb5: // LDA ZP, X
+      case 0xb5:
         this.A = this.Load(this.ZP_X());
         break;
-      case 0xb2: // LDA (IND)
+      case 0xb2:
         this.A = this.Load(this.IND());
         break;
-      case 0xa1: // LDA (IND, X)
+      case 0xa1:
         this.A = this.Load(this.IND_X());
         break;
-      case 0xb1: // LDA (IND), Y
+      case 0xb1:
         this.A = this.Load(this.IND_Y());
         break;
-      case 0xad: // LDA ABS
+      case 0xad:
         this.A = this.Load(this.ABS());
         break;
-      case 0xbd: // LDA ABS, X
+      case 0xbd:
         this.A = this.Load(this.ABS_X());
         break;
-      case 0xb9: // LDA ABS, Y
+      case 0xb9:
         this.A = this.Load(this.ABS_Y());
         break;
-      case 0xa2: // LDX IMM
+      case 0xa2:
         this.X = this.Load(this.PC + 1);
         break;
-      case 0xa6: // LDX ZP
+      case 0xa6:
         this.X = this.Load(this.ZP());
         break;
-      case 0xb6: // LDX ZP, Y
+      case 0xb6:
         this.X = this.Load(this.ZP_Y());
         break;
-      case 0xae: // LDX ABS
+      case 0xae:
         this.X = this.Load(this.ABS());
         break;
-      case 0xbe: // LDX ABS, Y
+      case 0xbe:
         this.X = this.Load(this.ABS_Y());
         break;
-      case 0xa0: // LDY IMM
+      case 0xa0:
         this.Y = this.Load(this.PC + 1);
         break;
-      case 0xa4: // LDY ZP
+      case 0xa4:
         this.Y = this.Load(this.ZP());
         break;
-      case 0xb4: // LDY ZP, X
+      case 0xb4:
         this.Y = this.Load(this.ZP_X());
         break;
-      case 0xac: // LDY ABS
+      case 0xac:
         this.Y = this.Load(this.ABS());
         break;
-      case 0xbc: // LDY ABS, X
+      case 0xbc:
         this.Y = this.Load(this.ABS_X());
         break;
-      case 0x85: // STA ZP
+      case 0x85:
         this.Store(this.ZP(), this.A);
         break;
-      case 0x95: // STA ZP, X
+      case 0x95:
         this.Store(this.ZP_X(), this.A);
         break;
-      case 0x92: // STA (IND)
+      case 0x92:
         this.Store(this.IND(), this.A);
         break;
-      case 0x81: // STA (IND, X)
+      case 0x81:
         this.Store(this.IND_X(), this.A);
         break;
-      case 0x91: // STA (IND), Y
+      case 0x91:
         this.Store(this.IND_Y(), this.A);
         break;
-      case 0x8d: // STA ABS
+      case 0x8d:
         this.Store(this.ABS(), this.A);
         break;
-      case 0x9d: // STA ABS, X
+      case 0x9d:
         this.Store(this.ABS_X(), this.A);
         break;
-      case 0x99: // STA ABS, Y
+      case 0x99:
         this.Store(this.ABS_Y(), this.A);
         break;
-      case 0x86: // STX ZP
+      case 0x86:
         this.Store(this.ZP(), this.X);
         break;
-      case 0x96: // STX ZP, Y
+      case 0x96:
         this.Store(this.ZP_Y(), this.X);
         break;
-      case 0x8e: // STX ABS
+      case 0x8e:
         this.Store(this.ABS(), this.X);
         break;
-      case 0x84: // STY ZP
+      case 0x84:
         this.Store(this.ZP(), this.Y);
         break;
-      case 0x94: // STY ZP, X
+      case 0x94:
         this.Store(this.ZP_X(), this.Y);
         break;
-      case 0x8c: // STY ABS
+      case 0x8c:
         this.Store(this.ABS(), this.Y);
         break;
-      case 0x64: // STZ ZP
+      case 0x64:
         this.Store(this.ZP(), 0x00);
         break;
-      case 0x74: // STZ ZP, X
+      case 0x74:
         this.Store(this.ZP_X(), 0x00);
         break;
-      case 0x9c: // STZ ABS
+      case 0x9c:
         this.Store(this.ABS(), 0x00);
         break;
-      case 0x9e: // STZ ABS, X
+      case 0x9e:
         this.Store(this.ABS_X(), 0x00);
         break;
-      case 0xea: // NOP
+      case 0xea:
         this.ClearTFlag();
         break;
-      case 0x03: // ST0
+      case 0x03:
         this.Core.vdc.SetVDCRegister(this.mem.Get(this.PC + 1), this.Core.vpc.VDCSelect);
         this.ClearTFlag();
         break;
-      case 0x13: // ST1
+      case 0x13:
         this.Core.vdc.SetVDCLow(this.mem.Get(this.PC + 1), this.Core.vpc.VDCSelect);
         this.ClearTFlag();
         break;
-      case 0x23: // ST2
+      case 0x23:
         this.Core.vdc.SetVDCHigh(this.mem.Get(this.PC + 1), this.Core.vpc.VDCSelect);
         this.ClearTFlag();
         break;
-      case 0x53: // TAMi
-        data = this.mem.Get(this.PC + 1);
-        bit = 0x01;
+      case 0x53:
+        var data = this.mem.Get(this.PC + 1);
+        var bit = 0x01;
         if (data == 0x00) data = this.mem.MPRSelect;
         else this.mem.MPRSelect = data;
-        for (i = 0; i < 8; i++) if ((data & (bit << i)) != 0x00) this.mem.MPR[i] = this.A << 13;
+        for (var i = 0; i < 8; i++) if ((data & (bit << i)) != 0x00) this.mem.MPR[i] = this.A << 13;
         break;
-      case 0x43: // TMAi
-        data = this.mem.Get(this.PC + 1);
-        bit = 0x01;
+      case 0x43:
+        var data = this.mem.Get(this.PC + 1);
+        var bit = 0x01;
         if (data == 0x00) data = this.mem.MPRSelect;
         else this.mem.MPRSelect = data;
-        for (i = 0; i < 8; i++) if ((data & (bit << i)) != 0x00) this.A = this.mem.MPR[i] >>> 13;
+        for (var i = 0; i < 8; i++) if ((data & (bit << i)) != 0x00) this.A = this.mem.MPR[i] >>> 13;
         break;
-      case 0xf3: // TAI
+      case 0xf3:
         if (this.TransferLen == 0) {
           this.TransferSrc = this.mem.Get16(this.PC + 1);
           this.TransferDist = this.mem.Get16(this.PC + 3);
@@ -1415,7 +1406,7 @@ class CPU {
           this.PC += 7;
         }
         break;
-      case 0xc3: // TDD
+      case 0xc3:
         if (this.TransferLen == 0) {
           this.TransferSrc = this.mem.Get16(this.PC + 1);
           this.TransferDist = this.mem.Get16(this.PC + 3);
@@ -1432,7 +1423,7 @@ class CPU {
           this.PC += 7;
         }
         break;
-      case 0xe3: // TIA
+      case 0xe3:
         if (this.TransferLen == 0) {
           this.TransferSrc = this.mem.Get16(this.PC + 1);
           this.TransferDist = this.mem.Get16(this.PC + 3);
@@ -1451,7 +1442,7 @@ class CPU {
           this.PC += 7;
         }
         break;
-      case 0x73: // TII
+      case 0x73:
         if (this.TransferLen == 0) {
           this.TransferSrc = this.mem.Get16(this.PC + 1);
           this.TransferDist = this.mem.Get16(this.PC + 3);
@@ -1468,7 +1459,7 @@ class CPU {
           this.PC += 7;
         }
         break;
-      case 0xd3: // TIN
+      case 0xd3:
         if (this.TransferLen == 0) {
           this.TransferSrc = this.mem.Get16(this.PC + 1);
           this.TransferDist = this.mem.Get16(this.PC + 3);
@@ -1484,16 +1475,16 @@ class CPU {
           this.PC += 7;
         }
         break;
-      case 0xd4: // CSH
+      case 0xd4:
         this.ClearTFlag();
         this.CPUBaseClock = this.BaseClock7;
         break;
-      case 0x54: // CSL
+      case 0x54:
         this.ClearTFlag();
         this.CPUBaseClock = this.BaseClock1;
         break;
       default:
-        this.ClearTFlag(); //NOP
+        this.ClearTFlag();
         break;
     }
     this.PC += this.OpBytes[op];
@@ -1745,55 +1736,42 @@ class CPU {
     return this.mem.Get16((this.mem.Get16(this.PC + 1) + this.X) & 0xffff);
   }
   SetNZFlag(data) {
-    // Set N Z Flags
     this.P = (this.P & ~(this.NFlag | this.ZFlag)) | this.NZCacheTable[data];
   }
   SetVFlag() {
-    // Set V Flag
     this.P |= this.VFlag;
   }
   ClearVFlag() {
-    // Clear V Flag
     this.P &= ~this.VFlag;
   }
   SetTFlag() {
-    // Set T Flag
     this.P |= this.TFlag;
   }
   ClearTFlag() {
-    // Clear T Flag
     this.P &= ~this.TFlag;
   }
   SetBFlag() {
-    // Set B Flag
     this.P |= this.BFlag;
   }
   ClearBFlag() {
-    // Clear B Flag
     this.P &= ~this.BFlag;
   }
   SetDFlag() {
-    // Set D Flag
     this.P |= this.DFlag;
   }
   ClearDFlag() {
-    // Clear D Flag
     this.P &= ~this.DFlag;
   }
   SetIFlag() {
-    // Set I Flag
     this.P |= this.IFlag;
   }
   ClearIFlag() {
-    // Clear I Flag
     this.P &= ~this.IFlag;
   }
   SetCFlag() {
-    // Set C Flag
     this.P |= this.CFlag;
   }
   ClearCFlag() {
-    // Clear C Flag
     this.P &= ~this.CFlag;
   }
   PCH() {

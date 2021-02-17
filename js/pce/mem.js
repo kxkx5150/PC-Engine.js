@@ -11,25 +11,22 @@ class RAM {
   Get(address) {
     address = this.MPR[address >> 13] | (address & 0x1fff);
 
-    if (address < 0x100000)
+    if (address < 0x100000) {
       return this.Core.Mapper.Read(address);
-    if (address < 0x1ee000)
+    } else if (address < 0x1ee000) {
       return 0xff;
-    if (address < 0x1f0000) {
+    } else if (address < 0x1f0000) {
       if (this.BRAMUse) return this.BRAM[address & 0x1fff];
       else return 0xff;
-    }
-    if (address < 0x1f8000)
+    } else if (address < 0x1f8000) {
       return this.RAM[address & this.RAMMask];
-    if (address < 0x1fe000)
+    } else if (address < 0x1fe000) {
       return 0xff;
-    if (address < 0x1fe400) {
+    } else if (address < 0x1fe400) {
       if (this.Core.SuperGrafx) {
         let tmp = address & 0x00001f;
         if (tmp < 0x00008) {
-          switch (
-            address & 0x000003 // VDC#1
-          ) {
+          switch (address & 0x000003) {
             case 0x00:
               return this.Core.vdc.GetVDCStatus(0);
             case 0x01:
@@ -42,7 +39,6 @@ class RAM {
         } else if (tmp < 0x00010) {
           return this.Core.vpc.GetVPC(tmp & 0x000007);
         } else if (tmp < 0x00018) {
-          // VDC#2
           switch (address & 0x000003) {
             case 0x00:
               return this.Core.vdc.GetVDCStatus(1);
@@ -57,9 +53,7 @@ class RAM {
           return 0xff;
         }
       } else {
-        switch (
-          address & 0x000003 // VDC#1
-        ) {
+        switch (address & 0x000003) {
           case 0x00:
             return this.Core.vdc.GetVDCStatus(0);
           case 0x01:
@@ -70,10 +64,7 @@ class RAM {
             return this.Core.vdc.GetVDCHigh(0);
         }
       }
-    }
-
-    if (address < 0x1fe800) {
-      // VCE
+    } else if (address < 0x1fe800) {
       switch (address & 0x000007) {
         case 0x04:
           return this.Core.vce.GetVCEDataLow();
@@ -84,15 +75,13 @@ class RAM {
       }
     }
 
-    if (address < 0x1fec00)
-      // PSG
-      return //this.GetPSG(address & 0x00000f);
-
-    if (address < 0x1ff000)
+    if (address < 0x1fec00) {
+      return //this.Core.psg.GetPSG(address & 0x00000f);
+    } else if (address < 0x1ff000) {
       return this.Core.timer.ReadTimerCounter();
-    if (address < 0x1ff400)
+    } else if (address < 0x1ff400) {
       return this.Core.io.GetJoystick();
-    if (address < 0x1ff800) {
+    } else if (address < 0x1ff800) {
       switch (address & 0x000003) {
         case 0x02:
           return this.Core.irq.GetIntDisable();
@@ -102,11 +91,7 @@ class RAM {
           return 0x00;
       }
     }
-
-    return 0xff; //EXT
-  }
-  Get16(address) {
-    return (this.Get(address + 1) << 8) | this.Get(address);
+    return 0xff;
   }
   Set(address, data) {
     address = this.MPR[address >> 13] | (address & 0x1fff);
@@ -114,27 +99,21 @@ class RAM {
     if (address < 0x100000) {
       this.Core.Mapper.Write(address, data);
       return;
-    }
-    if (address < 0x1ee000)
+    } else if (address < 0x1ee000) {
       return;
-    if (address < 0x1f0000) {
+    } else if (address < 0x1f0000) {
       if (this.BRAMUse) this.BRAM[address & 0x1fff] = data;
       return;
-    }
-    if (address < 0x1f8000) {
+    } else if (address < 0x1f8000) {
       this.RAM[address & this.RAMMask] = data;
       return;
-    }
-    if (address < 0x1fe000)
+    } else if (address < 0x1fe000) {
       return;
-    if (address < 0x1fe400) {
-      // VDC
+    } else if (address < 0x1fe400) {
       if (this.Core.SuperGrafx) {
         let tmp = address & 0x00001f;
         if (tmp < 0x00008) {
-          switch (
-            address & 0x000003 // VDC#1
-          ) {
+          switch (address & 0x000003) {
             case 0x00:
               this.Core.vdc.SetVDCRegister(data, 0);
               break;
@@ -146,10 +125,8 @@ class RAM {
               break;
           }
         } else if (tmp < 0x00010) {
-          // VPC
           this.Core.vpc.SetVPC(tmp & 0x000007, data);
         } else if (tmp < 0x00018) {
-          // VDC#2
           switch (address & 0x000003) {
             case 0x00:
               this.Core.vdc.SetVDCRegister(data, 1);
@@ -163,9 +140,7 @@ class RAM {
           }
         }
       } else {
-        switch (
-          address & 0x000003 // VDC#1
-        ) {
+        switch (address & 0x000003) {
           case 0x00:
             this.Core.vdc.SetVDCRegister(data, 0);
             break;
@@ -180,10 +155,7 @@ class RAM {
         }
       }
       return;
-    }
-
-    if (address < 0x1fe800) {
-      // VCE
+    } else if (address < 0x1fe800) {
       switch (address & 0x000007) {
         case 0x00:
           this.Core.vce.SetVCEControl(data);
@@ -202,15 +174,10 @@ class RAM {
           break;
       }
       return;
-    }
-
-    if (address < 0x1fec00) {
-      // PSG
-      // this.SetPSG(address & 0x00000f, data);
+    } else if (address < 0x1fec00) {
+      //this.Core.psg.SetPSG(address & 0x00000f, data);
       return;
-    }
-
-    if (address < 0x1ff000) {
+    } else if (address < 0x1ff000) {
       switch (address & 0x000001) {
         case 0x00:
           this.Core.timer.WirteTimerReload(data);
@@ -220,12 +187,10 @@ class RAM {
           break;
       }
       return;
-    }
-    if (address < 0x1ff400) {
+    } else if (address < 0x1ff400) {
       this.Core.io.SetJoystick(data);
       return;
-    }
-    if (address < 0x1ff800) {
+    } else if (address < 0x1ff800) {
       switch (address & 0x000003) {
         case 0x02:
           this.Core.irq.SetIntDisable(data);
@@ -236,6 +201,9 @@ class RAM {
       }
       return;
     }
+  }
+  Get16(address) {
+    return (this.Get(address + 1) << 8) | this.Get(address);
   }
   StorageReset() {
     for (let i = 0; i < 7; i++) this.MPR[i] = 0xff << 13;

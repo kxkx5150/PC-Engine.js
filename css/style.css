@@ -31,8 +31,8 @@ button:focus {
   width: 150px;
 }
 #output {
-  width: 256px;
-  height: 224px;
+  width: 640px;
+  height: 524px;
   image-rendering: crisp-edges;
   image-rendering: pixelated;
 }

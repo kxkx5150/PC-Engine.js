@@ -12,16 +12,20 @@ class PCE {
     this.BRAKE = false;
 
     this.Mapper = null;
-    this.irq = new IRQ(this);
     this.mem = new RAM(this);
     this.cpu = new CPU(this,this.mem);
     this.vce = new VCE(this);
     this.vpc = new VPC(this);
     this.vdc = new VDC(this);
+    this.sound = new SOUND(this);
+    this.psg = new PSG(this);
+
+
+    this.irq = new IRQ(this);
     this.timer = new TIMER(this);
     this.io = new IO(this);
     this.SetCanvas(canvas_id)
-
+    this.psg.PSGInit();
   }
   Init() {
     this.irq.Init();
@@ -31,19 +35,26 @@ class PCE {
     this.vpc.VPCInit();
     this.vdc.VDCInit();
     this.timer.TimerInit();
+    this.io.JoystickInit();
   }
   Reset() {
     this.irq.Reset();
     this.mem.StorageReset();
-    this.cpu.CPUReset();
+    this.cpu.CPUInit();
     this.vce.VCEInit();
     this.vpc.VPCInit();
     this.vdc.VDCInit();
     this.timer.TimerInit();
+    this.io.JoystickInit();
+    this.psg.PSGInit();
+    this.cpu.CPUReset();
+
   }
   Start() {
 		if(this.TimerID == null) {
+      this.io.JoystickEventInit();
 			this.UpdateAnimationFrame();
+      this.sound.WebAudioCtx.resume();
 		}
     this.Run();
 	}
@@ -60,7 +71,6 @@ class PCE {
 			this.ImageData.data[i + 3] = 255;
 		}
 		this.Ctx.putImageData(this.ImageData, 0, 0);
-
 		return true;
 	}
   UpdateAnimationFrame() {
@@ -68,19 +78,13 @@ class PCE {
 		this.Run();
 	}
   Run() {
+    this.io.CheckGamePad();
     this.DrawFlag = false;
     while (!this.DrawFlag) {
 			this.cpu.CPURun();
       this.vdc.VDCRun();
 			this.timer.TimerRun();
-
-
-
-      // this.Count++
-      // if(this.Count > 1000){
-      //   console.log("break");
-      //   break;
-      // }
+      // this.psg.PSGRun();
       if(this.BRAKE)break;
     }
   }

@@ -1,9 +1,9 @@
 class IO {
-  constructor() {
+  constructor(core) {
+    this.Core = core;
+
     this.JoystickSEL = 0;
     this.JoystickCLR = 0;
-    this.KeyUpFunction = null;
-    this.KeyDownFunction = null;
 
     this.Keybord = new Array(5).fill([]);
     this.Keybord = this.Keybord.map((d) => {
@@ -82,7 +82,6 @@ class IO {
         [{ type: "B", index: 3 }],
       ],
     ]; // SHOT6
-
     this.GamePadData["0f0d-0009-HORI PAD 3 TURBO"] = this.GamePadData[
       "HORI PAD 3 TURBO (Vendor: 0f0d Product: 0009)"
     ]; // Firefox
@@ -131,7 +130,7 @@ class IO {
       this.JoystickCLR = 0;
       this.GamePadSelect = 0;
       if (this.GamePadButton6) this.GamePadButtonSelect = this.GamePadButtonSelect ^ 0x02;
-      this.GamePadBuffer = 0xb0 | this.CountryType;
+      this.GamePadBuffer = 0xb0 | this.Core.CountryType;
       return;
     }
 
@@ -143,8 +142,8 @@ class IO {
     let no = this.MultiTap ? this.GamePadSelect - 1 : 0;
     if (no < 5) {
       let tmp = this.GamePadButtonSelect | this.JoystickSEL;
-      this.GamePadBuffer = (this.Keybord[no][tmp] & this.GamePad[no][tmp]) | this.CountryType;
-    } else this.GamePadBuffer = 0xb0 | this.CountryType;
+      this.GamePadBuffer = (this.Keybord[no][tmp] & this.GamePad[no][tmp]) | this.Core.CountryType;
+    } else this.GamePadBuffer = 0xb0 | this.Core.CountryType;
   }
 
   GetJoystick() {
@@ -350,15 +349,12 @@ class IO {
   }
 
   JoystickEventInit() {
-    this.KeyUpFunction = this.CheckKeyUpFunction.bind(this);
-    this.KeyDownFunction = this.CheckKeyDownFunction.bind(this);
-    window.addEventListener("keyup", this.KeyUpFunction, true);
-    window.addEventListener("keydown", this.KeyDownFunction, true);
-  }
-
-  JoystickEventRelease() {
-    window.removeEventListener("keyup", this.KeyUpFunction, true);
-    window.removeEventListener("keydown", this.KeyDownFunction, true);
+    window.addEventListener("keyup", (e)=>{
+      this.CheckKeyUpFunction(e);
+    });
+    window.addEventListener("keydown", (e)=>{
+      this.CheckKeyDownFunction(e);
+    });
   }
 
   CheckGamePad() {
@@ -368,8 +364,6 @@ class IO {
       this.GamePad[i][2] = 0xbf;
       this.GamePad[i][3] = 0xb0;
     }
-
-    if (typeof navigator.getGamepads === "undefined") return;
 
     let pads = navigator.getGamepads();
     for (let i = 0; i < 5; i++) {

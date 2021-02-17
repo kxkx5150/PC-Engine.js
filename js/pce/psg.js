@@ -2,9 +2,11 @@
 /* **** PSG **** */
 /* ************* */
 class PSG {
-  PSGConstruct() {
+  constructor(core) {
+    this.Core = core;
+
     this.PSGChannel = new Array(6);
-    this.PSGBaseClock = this.BaseClock3;
+    this.PSGBaseClock = this.Core.cpu.BaseClock3;
 
     this.PSGProgressClock = 0;
 
@@ -17,7 +19,7 @@ class PSG {
   }
 
   PSGInit() {
-    this.SoundInit();
+    this.Core.sound.SoundInit();
 
     for (let i = 0; i < this.PSGChannel.length; i++)
       this.PSGChannel[i] = {
@@ -39,7 +41,7 @@ class PSG {
   }
 
   PSGRun() {
-    if (this.WebAudioCtx == null) return;
+    if (this.Core.sound.WebAudioCtx == null) return;
 
     let ch;
     let i;
@@ -48,7 +50,7 @@ class PSG {
     let ch1;
     let freqtmp;
 
-    this.PSGProgressClock += this.ProgressClock;
+    this.PSGProgressClock += this.Core.cpu.ProgressClock;
     i = (this.PSGProgressClock / this.PSGBaseClock) | 0;
     this.PSGProgressClock %= this.PSGBaseClock;
 
@@ -101,7 +103,7 @@ class PSG {
           }
         }
       }
-      this.SoundSet();
+      this.Core.sound.SoundSet();
     }
   }
 

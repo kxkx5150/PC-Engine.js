@@ -2,7 +2,9 @@
 /* **** Sound **** */
 /* *************** */
 class SOUND {
-  SoundConstruct() {
+  constructor(core) {
+    this.Core = core;
+
     this.WaveDataArray = [];
     this.WaveClockCounter = 0;
     this.WaveVolume = 1.0;
@@ -40,14 +42,13 @@ class SOUND {
     this.WaveDataArray[0] = [];
     this.WaveDataArray[1] = [];
 
-    if (typeof AudioContext !== "undefined" && this.WebAudioCtx == null) {
-      this.WebAudioCtx = new window.AudioContext();
-      this.WebAudioJsNode = this.WebAudioCtx.createScriptProcessor(this.WebAudioBufferSize, 0, 2);
-      this.WebAudioJsNode.onaudioprocess = this.WebAudioFunction.bind(this);
-      this.WebAudioGainNode = this.WebAudioCtx.createGain();
-      this.WebAudioJsNode.connect(this.WebAudioGainNode);
-      this.WebAudioGainNode.connect(this.WebAudioCtx.destination);
-    }
+    this.WebAudioCtx = new window.AudioContext();
+    this.WebAudioJsNode = this.WebAudioCtx.createScriptProcessor(this.WebAudioBufferSize, 0, 2);
+    this.WebAudioJsNode.onaudioprocess = this.WebAudioFunction.bind(this);
+
+    this.WebAudioGainNode = this.WebAudioCtx.createGain();
+    this.WebAudioJsNode.connect(this.WebAudioGainNode);
+    this.WebAudioGainNode.connect(this.WebAudioCtx.destination);
   }
 
   SoundSet() {
@@ -66,8 +67,8 @@ class SOUND {
       waveoutleft = 0;
       waveoutright = 0;
       for (j = 0; j < 6; j++) {
-        if (j != 1 || !this.WaveLfoOn) {
-          ch = this.PSGChannel[j];
+        if (j != 1 || !this.Core.psg.WaveLfoOn) {
+          ch = this.Core.psg.PSGChannel[j];
 
           if (j < 4 || !ch.noiseon) out = ch.keyon ? (ch.dda ? ch.R[6] & 0x1f : ch.wave[ch.index]) : 0;
           else out = (ch.noise & 0x0001) == 0x0001 ? 0x0f : 0;
