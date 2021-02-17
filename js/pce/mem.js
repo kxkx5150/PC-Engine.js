@@ -76,7 +76,7 @@ class RAM {
     }
 
     if (address < 0x1fec00) {
-      return //this.Core.psg.GetPSG(address & 0x00000f);
+      return this.Core.psg.GetPSG(address & 0x00000f);
     } else if (address < 0x1ff000) {
       return this.Core.timer.ReadTimerCounter();
     } else if (address < 0x1ff400) {
@@ -175,7 +175,7 @@ class RAM {
       }
       return;
     } else if (address < 0x1fec00) {
-      //this.Core.psg.SetPSG(address & 0x00000f, data);
+      this.Core.psg.SetPSG(address & 0x00000f, data);
       return;
     } else if (address < 0x1ff000) {
       switch (address & 0x000001) {

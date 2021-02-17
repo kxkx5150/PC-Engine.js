@@ -84,7 +84,7 @@ class PCE {
 			this.cpu.CPURun();
       this.vdc.VDCRun();
 			this.timer.TimerRun();
-      // this.psg.PSGRun();
+      this.psg.PSGRun();
       if(this.BRAKE)break;
     }
   }

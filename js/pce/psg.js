@@ -7,12 +7,9 @@ class PSG {
 
     this.PSGChannel = new Array(6);
     this.PSGBaseClock = this.Core.cpu.BaseClock3;
-
     this.PSGProgressClock = 0;
-
     this.WaveVolumeLeft = 0;
     this.WaveVolumeRight = 0;
-
     this.WaveLfoOn = false;
     this.WaveLfoControl = 0;
     this.WaveLfoFreqency = 0;

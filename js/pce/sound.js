@@ -41,11 +41,9 @@ class SOUND {
     this.WaveDataArray = [];
     this.WaveDataArray[0] = [];
     this.WaveDataArray[1] = [];
-
     this.WebAudioCtx = new window.AudioContext();
     this.WebAudioJsNode = this.WebAudioCtx.createScriptProcessor(this.WebAudioBufferSize, 0, 2);
     this.WebAudioJsNode.onaudioprocess = this.WebAudioFunction.bind(this);
-
     this.WebAudioGainNode = this.WebAudioCtx.createGain();
     this.WebAudioJsNode.connect(this.WebAudioGainNode);
     this.WebAudioGainNode.connect(this.WebAudioCtx.destination);
@@ -55,8 +53,6 @@ class SOUND {
     let waveoutleft;
     let waveoutright;
     let ch;
-
-    let i;
     let j;
     let out;
 
@@ -77,8 +73,8 @@ class SOUND {
           waveoutright += out * ch.rightvol;
         }
       }
-      this.WaveDataArray[0].push(waveoutleft * this.WaveVolumeLeft);
-      this.WaveDataArray[1].push(waveoutright * this.WaveVolumeRight);
+      this.WaveDataArray[0].push(waveoutleft * this.Core.psg.WaveVolumeLeft);
+      this.WaveDataArray[1].push(waveoutright * this.Core.psg.WaveVolumeRight);
       this.WebAudioGainNode.gain.value = this.WaveVolume;
     }
   }
