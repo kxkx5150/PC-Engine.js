@@ -129,10 +129,10 @@ class VDC {
       if (this.VDCPutLine == this.ScreenHeightMAX) {
         this.VDCPutLine = 0;
         this.GetScreenSize(0);
-        this.VDC[0].DrawBGYLine = 0;
+        this.VDC[0].DrawBGYLine = 4;
         if (this.Core.SuperGrafx) {
           this.GetScreenSize(1);
-          this.VDC[1].DrawBGYLine = 0;
+          this.VDC[1].DrawBGYLine = 4;
         }
         this.Core.DrawFlag = true;
         this.Core.Ctx.putImageData(this.Core.ImageData, 0, 0);
@@ -209,7 +209,7 @@ class VDC {
     vdcc.BGLine.fill(0x100);
     for (let i = 0; i < vdcc.ScreenSize; i += vdcc.DrawLineWidth) {
       vdcc.DrawBGYLine++;
-      if (vdcc.DrawBGYLine == this.ScreenHeightMAX) vdcc.DrawBGYLine = 0;
+      if (vdcc.DrawBGYLine == this.ScreenHeightMAX) vdcc.DrawBGYLine = 4;
       if (vdcc.DrawBGYLine < vdcc.VDS + vdcc.VSW) {
         //OVER SCAN
         this.MakeBGColorLineVDC(vdcno);

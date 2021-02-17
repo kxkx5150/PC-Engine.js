@@ -3,6 +3,7 @@ class PCE {
     this.MainCanvas = null;
     this.Ctx = null;
     this.ImageData = null;
+    this.framebuffer_u32 = null;
     this.ACtx = new AudioContext();
     this.sampleRate = 48000;
     this.SuperGrafx = false;
@@ -48,7 +49,6 @@ class PCE {
     this.io.JoystickInit();
     this.psg.PSGInit();
     this.cpu.CPUReset();
-
   }
   Start() {
 		if(this.TimerID == null) {
@@ -64,6 +64,7 @@ class PCE {
 			return false;
 		this.Ctx = this.MainCanvas.getContext("2d");
 		this.ImageData = this.Ctx.createImageData(this.vdc.ScreenWidthMAX, this.vdc.ScreenHeightMAX);
+    this.framebuffer_u32 = new Uint32Array(this.ImageData.data.buffer);
 		for(let i=0; i<this.vdc.ScreenWidthMAX*this.vdc.ScreenHeightMAX*4; i+=4) {
 			this.ImageData.data[i] = 0;
 			this.ImageData.data[i + 1] = 0;
@@ -76,6 +77,7 @@ class PCE {
   UpdateAnimationFrame() {
 		this.TimerID = requestAnimationFrame(this.UpdateAnimationFrame.bind(this));
 		this.Run();
+    if(this.BRAKE)cancelAnimationFrame(this.TimerID)
 	}
   Run() {
     this.io.CheckGamePad();
