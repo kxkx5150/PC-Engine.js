@@ -3,6 +3,11 @@ PC Engine Javascript Emulator
 
 勉強用にyhzmr442氏のjspceを参考にしています。
 
+<br>
+
+Demo  
+https://kxkx5150.github.io/PC-Engine.js/
+
 <br><br><br>
 
 
