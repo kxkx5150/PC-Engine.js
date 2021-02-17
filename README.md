@@ -1,5 +1,5 @@
 # PC-Engine.js
-PC Engine Javascript Emulator 
+PC Engine(TurboGrafx-16) Javascript Emulator 
 
 勉強用にyhzmr442氏のjspceを参考にしています。
 
