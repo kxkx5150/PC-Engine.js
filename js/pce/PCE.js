@@ -3,6 +3,8 @@ class PCE {
     this.MainCanvas = null;
     this.Ctx = null;
     this.ImageData = null;
+    this.ACtx = new AudioContext();
+    this.sampleRate = 48000;
     this.SuperGrafx = false;
     this.CountryTypePCE = 0x40;
     this.CountryTypeTG16 = 0x00;
@@ -17,10 +19,8 @@ class PCE {
     this.vce = new VCE(this);
     this.vpc = new VPC(this);
     this.vdc = new VDC(this);
-    this.sound = new SOUND(this);
+    this.sound = new SOUND(this,this.ACtx);
     this.psg = new PSG(this);
-
-
     this.irq = new IRQ(this);
     this.timer = new TIMER(this);
     this.io = new IO(this);
@@ -54,8 +54,8 @@ class PCE {
 		if(this.TimerID == null) {
       this.io.JoystickEventInit();
 			this.UpdateAnimationFrame();
-      this.sound.WebAudioCtx.resume();
 		}
+    this.ACtx.resume();
     this.Run();
 	}
   SetCanvas(canvasID) {

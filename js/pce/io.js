@@ -248,16 +248,16 @@ class IO {
 
   CheckKeyUpFunction(evt) {
     switch (evt.keyCode) {
-      case 83: // RUN 'S'
+      case 13: // RUN 'S'
         this.UnsetButtonRUN(0);
         break;
-      case 65: // SELECT 'A'
+      case 16: // SELECT 'A'
         this.UnsetButtonSELECT(0);
         break;
       case 90: // SHOT2 'Z'
         this.UnsetButtonSHOT2(0);
         break;
-      case 88: // SHOT1 'X'
+      case 65: // SHOT1 'X'
         this.UnsetButtonSHOT1(0);
         break;
 
@@ -299,16 +299,16 @@ class IO {
 
   CheckKeyDownFunction(evt) {
     switch (evt.keyCode) {
-      case 83: // RUN 'S'
+      case 13: // RUN 'S'
         this.SetButtonRUN(0);
         break;
-      case 65: // SELECT 'A'
+      case 16: // SELECT 'A'
         this.SetButtonSELECT(0);
         break;
       case 90: // SHOT2 'Z'
         this.SetButtonSHOT2(0);
         break;
-      case 88: // SHOT1 'X'
+      case 65: // SHOT1 'X'
         this.SetButtonSHOT1(0);
         break;
 

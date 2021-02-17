@@ -1,6 +1,3 @@
-/* ************* */
-/* **** PSG **** */
-/* ************* */
 class PSG {
   constructor(core) {
     this.Core = core;
@@ -38,7 +35,7 @@ class PSG {
   }
 
   PSGRun() {
-    if (this.Core.sound.WebAudioCtx == null) return;
+    if (this.Core.ACtx == null) return;
 
     let ch;
     let i;

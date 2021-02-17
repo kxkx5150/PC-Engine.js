@@ -2,22 +2,17 @@
 /* **** Sound **** */
 /* *************** */
 class SOUND {
-  constructor(core) {
+  constructor(core,actx) {
     this.Core = core;
-
+    this.ACtx = actx
     this.WaveDataArray = [];
     this.WaveClockCounter = 0;
-    this.WaveVolume = 1.0;
-
-    this.WebAudioCtx = null;
     this.WebAudioJsNode = null;
-    this.WebAudioGainNode = null;
     this.WebAudioBufferSize = 2048;
-
     this.PSGClock = 3579545;
   }
 
-  WebAudioFunction(e) {
+  audioCallback(e) {
     let output = [];
     let data = [];
 
@@ -41,12 +36,10 @@ class SOUND {
     this.WaveDataArray = [];
     this.WaveDataArray[0] = [];
     this.WaveDataArray[1] = [];
-    this.WebAudioCtx = new window.AudioContext();
-    this.WebAudioJsNode = this.WebAudioCtx.createScriptProcessor(this.WebAudioBufferSize, 0, 2);
-    this.WebAudioJsNode.onaudioprocess = this.WebAudioFunction.bind(this);
-    this.WebAudioGainNode = this.WebAudioCtx.createGain();
-    this.WebAudioJsNode.connect(this.WebAudioGainNode);
-    this.WebAudioGainNode.connect(this.WebAudioCtx.destination);
+    this.atx_scr = this.ACtx.createScriptProcessor(this.WebAudioBufferSize, 0, 2);
+    this.atx_scr.addEventListener("audioprocess", this.audioCallback.bind(this));
+    this.atx_scr.connect(this.ACtx.destination);
+    this.sampleRate = this.ACtx.sampleRate;
   }
 
   SoundSet() {
@@ -56,7 +49,7 @@ class SOUND {
     let j;
     let out;
 
-    this.WaveClockCounter += this.WebAudioCtx.sampleRate;
+    this.WaveClockCounter += this.ACtx.sampleRate;
     if (this.WaveClockCounter >= this.PSGClock) {
       this.WaveClockCounter -= this.PSGClock;
 
@@ -75,7 +68,6 @@ class SOUND {
       }
       this.WaveDataArray[0].push(waveoutleft * this.Core.psg.WaveVolumeLeft);
       this.WaveDataArray[1].push(waveoutright * this.Core.psg.WaveVolumeRight);
-      this.WebAudioGainNode.gain.value = this.WaveVolume;
     }
   }
 }
