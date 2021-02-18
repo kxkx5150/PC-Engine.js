@@ -1,10 +1,8 @@
 class IO {
   constructor(core) {
     this.Core = core;
-
     this.JoystickSEL = 0;
     this.JoystickCLR = 0;
-
     this.Keybord = new Array(5).fill([]);
     this.Keybord = this.Keybord.map((d) => {
       return new Array(4);
@@ -18,109 +16,57 @@ class IO {
     this.GamePadSelect = 0x00;
     this.GamePadButtonSelect = 0x00;
     this.GamePadBuffer = 0x00;
-
-    this.GamePadData = [];
-    this.GamePadData["STANDARD PAD"] = [
-      [
-        [{ type: "B", index: 1 }], // SHOT1
-        [{ type: "B", index: 0 }], // SHOT2
-        [{ type: "B", index: 8 }], // SELECT
-        [
-          { type: "B", index: 9 },
-          { type: "B", index: 2 },
-        ], // RUN
-        [{ type: "B", index: 12 }], // UP
-        [{ type: "B", index: 13 }], // DOWN
-        [{ type: "B", index: 14 }], // LEFT
-        [{ type: "B", index: 15 }],
-      ], // RIGHT
-
-      [
-        [{ type: "B", index: 1 }], // SHOT1
-        [{ type: "B", index: 0 }], // SHOT2
-        [{ type: "B", index: 8 }], // SELECT
-        [{ type: "B", index: 9 }], // RUN
-        [{ type: "B", index: 12 }], // UP
-        [{ type: "B", index: 13 }], // DOWN
-        [{ type: "B", index: 14 }], // LEFT
-        [{ type: "B", index: 15 }], // RIGHT
-        [{ type: "B", index: 7 }], // SHOT3
-        [{ type: "B", index: 5 }], // SHOT4
-        [{ type: "B", index: 2 }], // SHOT5
-        [{ type: "B", index: 3 }],
-      ],
-    ]; // SHOT6
-
-    this.GamePadData["HORI PAD 3 TURBO (Vendor: 0f0d Product: 0009)"] = [
-      // Chrome
-      [
-        [{ type: "B", index: 2 }], // SHOT1
-        [{ type: "B", index: 1 }], // SHOT2
-        [{ type: "B", index: 8 }], // SELECT
-        [
-          { type: "B", index: 9 },
-          { type: "B", index: 0 },
-        ], // RUN
-        [{ type: "P", index: 9 }], // UP (POV)
-        [{ type: "N", index: 0 }], // DOWN (POV)
-        [{ type: "N", index: 0 }], // LEFT (POV)
-        [{ type: "N", index: 0 }],
-      ], // RIGHT (POV)
-
-      [
-        [{ type: "B", index: 2 }], // SHOT1
-        [{ type: "B", index: 1 }], // SHOT2
-        [{ type: "B", index: 8 }], // SELECT
-        [{ type: "B", index: 9 }], // RUN
-        [{ type: "P", index: 9 }], // UP (POV)
-        [{ type: "N", index: 0 }], // DOWN (POV)
-        [{ type: "N", index: 0 }], // LEFT (POV)
-        [{ type: "N", index: 0 }], // RIGHT (POV)
-        [{ type: "B", index: 7 }], // SHOT3
-        [{ type: "B", index: 5 }], // SHOT4
-        [{ type: "B", index: 0 }], // SHOT5
-        [{ type: "B", index: 3 }],
-      ],
-    ]; // SHOT6
-    this.GamePadData["0f0d-0009-HORI PAD 3 TURBO"] = this.GamePadData[
-      "HORI PAD 3 TURBO (Vendor: 0f0d Product: 0009)"
-    ]; // Firefox
-    this.GamePadData["UNKNOWN PAD"] = this.GamePadData["HORI PAD 3 TURBO (Vendor: 0f0d Product: 0009)"];
-
-    this.GamePadKeyData = [
-      { index: 0, data: 0x01 },
-      { index: 0, data: 0x02 },
-      { index: 0, data: 0x04 },
-      { index: 0, data: 0x08 },
-      { index: 1, data: 0x01 },
-      { index: 1, data: 0x04 },
-      { index: 1, data: 0x08 },
-      { index: 1, data: 0x02 },
-      { index: 2, data: 0x01 },
-      { index: 2, data: 0x02 },
-      { index: 2, data: 0x04 },
-      { index: 2, data: 0x08 },
-    ];
-
-    this.GamePadPovData = [0x01, 0x01 | 0x02, 0x02, 0x02 | 0x04, 0x04, 0x04 | 0x08, 0x08, 0x01 | 0x08];
+    this.axesMap = {
+      RIGHT: {
+        no: 7,
+        press: false,
+      },
+      LEFT: {
+        no: 6,
+        press: false,
+      },
+      DOWN: {
+        no: 5,
+        press: false,
+      },
+      UP: {
+        no: 4,
+        press: false,
+      },
+    };
+    this.buttonMap = {
+      START: {
+        no: 9,
+        press: false,
+      },
+      SELECT: {
+        no: 8,
+        press: false,
+      },
+      A: {
+        no: 1,
+        press: false,
+      },
+      B: {
+        no: 2,
+        press: false,
+      },
+    };
   }
 
   JoystickInit() {
-    this.JoystickSEL = 0;
-    this.JoystickCLR = 0;
-
     for (let i = 0; i < this.Keybord.length; i++) {
       this.Keybord[i][0] = 0xbf;
       this.Keybord[i][1] = 0xbf;
-      this.Keybord[i][2] = 0xbf;
-      this.Keybord[i][3] = 0xb0;
     }
 
     this.GamePadSelect = 0;
     this.GamePadButtonSelect = 0x00;
     this.GamePadBuffer = 0x00;
   }
-
+  GetJoystick() {
+    return this.GamePadBuffer;
+  }
   SetJoystick(data) {
     let sel = data & 0x01;
     let clr = (data & 0x02) >> 1;
@@ -135,7 +81,6 @@ class IO {
     }
 
     if (this.JoystickSEL == 0 && this.JoystickCLR == 0 && sel == 1 && clr == 0) this.GamePadSelect++;
-
     this.JoystickSEL = sel;
     this.JoystickCLR = clr;
 
@@ -145,107 +90,6 @@ class IO {
       this.GamePadBuffer = (this.Keybord[no][tmp] & this.GamePad[no][tmp]) | this.Core.CountryType;
     } else this.GamePadBuffer = 0xb0 | this.Core.CountryType;
   }
-
-  GetJoystick() {
-    return this.GamePadBuffer;
-  }
-
-  UnsetButtonRUN(no) {
-    this.Keybord[no][0] |= 0x08;
-  }
-
-  UnsetButtonSELECT(no) {
-    this.Keybord[no][0] |= 0x04;
-  }
-
-  UnsetButtonSHOT2(no) {
-    this.Keybord[no][0] |= 0x02;
-  }
-
-  UnsetButtonSHOT1(no) {
-    this.Keybord[no][0] |= 0x01;
-  }
-
-  UnsetButtonLEFT(no) {
-    this.Keybord[no][1] |= 0x08;
-  }
-
-  UnsetButtonDOWN(no) {
-    this.Keybord[no][1] |= 0x04;
-  }
-
-  UnsetButtonRIGHT(no) {
-    this.Keybord[no][1] |= 0x02;
-  }
-
-  UnsetButtonUP(no) {
-    this.Keybord[no][1] |= 0x01;
-  }
-
-  UnsetButtonSHOT6(no) {
-    this.Keybord[no][2] |= 0x08;
-  }
-
-  UnsetButtonSHOT5(no) {
-    this.Keybord[no][2] |= 0x04;
-  }
-
-  UnsetButtonSHOT4(no) {
-    this.Keybord[no][2] |= 0x02;
-  }
-
-  UnsetButtonSHOT3(no) {
-    this.Keybord[no][2] |= 0x01;
-  }
-
-  SetButtonRUN(no) {
-    this.Keybord[no][0] &= ~0x08;
-  }
-
-  SetButtonSELECT(no) {
-    this.Keybord[no][0] &= ~0x04;
-  }
-
-  SetButtonSHOT2(no) {
-    this.Keybord[no][0] &= ~0x02;
-  }
-
-  SetButtonSHOT1(no) {
-    this.Keybord[no][0] &= ~0x01;
-  }
-
-  SetButtonLEFT(no) {
-    this.Keybord[no][1] &= ~0x08;
-  }
-
-  SetButtonDOWN(no) {
-    this.Keybord[no][1] &= ~0x04;
-  }
-
-  SetButtonRIGHT(no) {
-    this.Keybord[no][1] &= ~0x02;
-  }
-
-  SetButtonUP(no) {
-    this.Keybord[no][1] &= ~0x01;
-  }
-
-  SetButtonSHOT6(no) {
-    this.Keybord[no][2] &= ~0x08;
-  }
-
-  SetButtonSHOT5(no) {
-    this.Keybord[no][2] &= ~0x04;
-  }
-
-  SetButtonSHOT4(no) {
-    this.Keybord[no][2] &= ~0x02;
-  }
-
-  SetButtonSHOT3(no) {
-    this.Keybord[no][2] &= ~0x01;
-  }
-
   CheckKeyUpFunction(evt) {
     switch (evt.keyCode) {
       case 13: // RUN 'S'
@@ -349,10 +193,10 @@ class IO {
   }
 
   JoystickEventInit() {
-    window.addEventListener("keyup", (e)=>{
+    window.addEventListener("keyup", (e) => {
       this.CheckKeyUpFunction(e);
     });
-    window.addEventListener("keydown", (e)=>{
+    window.addEventListener("keydown", (e) => {
       this.CheckKeyDownFunction(e);
     });
   }
@@ -361,51 +205,236 @@ class IO {
     for (let i = 0; i < this.GamePad.length; i++) {
       this.GamePad[i][0] = 0xbf;
       this.GamePad[i][1] = 0xbf;
-      this.GamePad[i][2] = 0xbf;
-      this.GamePad[i][3] = 0xb0;
+
     }
 
     let pads = navigator.getGamepads();
-    for (let i = 0; i < 5; i++) {
-      let pad = pads[i];
-      if (typeof pad !== "undefined" && pad !== null) {
-        let paddata;
-        if (pad.mapping === "standard") paddata = this.GamePadData["STANDARD PAD"];
-        else {
-          paddata = this.GamePadData[pad.id];
-          if (typeof paddata === "undefined") paddata = this.GamePadData["UNKNOWN PAD"];
-        }
-        paddata = this.GamePadButton6 ? paddata[1] : paddata[0];
-
-        let tmp = 0;
-        for (const val0 of paddata) {
-          for (const val1 of val0) {
-            switch (val1.type) {
-              case "B":
-                if (pad.buttons[val1.index].pressed)
-                  this.GamePad[i][this.GamePadKeyData[tmp].index] &= ~this.GamePadKeyData[tmp].data;
-                break;
-              case "A-":
-                if (pad.axes[val1.index] < -0.5)
-                  this.GamePad[i][this.GamePadKeyData[tmp].index] &= ~this.GamePadKeyData[tmp].data;
-                break;
-              case "A+":
-                if (pad.axes[val1.index] > 0.5)
-                  this.GamePad[i][this.GamePadKeyData[tmp].index] &= ~this.GamePadKeyData[tmp].data;
-                break;
-              case "AB":
-                if (pad.axes[val1.index] > -0.75)
-                  this.GamePad[i][this.GamePadKeyData[tmp].index] &= ~this.GamePadKeyData[tmp].data;
-                break;
-              case "P":
-                let povtmp = (((pad.axes[val1.index] + 1) * 7) / 2 + 0.5) | 0;
-                this.GamePad[i][1] &= ~(povtmp <= 7 ? this.GamePadPovData[povtmp] : 0x00);
-                break;
-            }
+    let pad = pads[1];
+    if (pad) {
+      this.checkButton("START", pad.buttons);
+      this.checkButton("SELECT", pad.buttons);
+      this.checkAxes(pad.axes);
+      this.checkButton("A", pad.buttons);
+      this.checkButton("B", pad.buttons);
+    }
+  }
+  checkButton(name, buttons) {
+    for (var i = 0; i < buttons.length; i++) {
+      let btn = buttons[i];
+      if (i === this.buttonMap[name].no) {
+        if (btn.pressed) {
+          // if (this.buttonMap[name].press) return;
+          this.buttonMap[name].press = true;
+          this.pressButton(name)
+          return true;
+        } else {
+          if (this.buttonMap[name].press) {
+            this.buttonMap[name].press = false;
+            this.unpressButton(name)
           }
-          tmp++;
         }
       }
     }
+    return;
+  }
+  pressButton(name){
+    if(name === "START"){
+      this.GamePad[0][0] &= ~0x08;
+    }else if(name === "SELECT"){
+      this.GamePad[0][0] &= ~0x04;
+    }else if(name === "A"){
+      this.GamePad[0][0] &= ~0x01;
+    }else if(name === "B"){
+      this.GamePad[0][0] &= ~0x02;
+    }
+  }
+  unpressButton(name){
+
+  }
+  checkAxes(axes) {
+    var val = 0;
+    if (axes[0] < -0.5) {
+      val += 1;
+    } else if (axes[0] > 0.5) {
+      val += 2;
+    }
+    if (axes[1] < -0.5) {
+      val += 4;
+    } else if (axes[1] > 0.5) {
+      val += 8;
+    }
+    if (val === 1) {
+      this.checkAxesButton("UP", false);
+      this.checkAxesButton("DOWN", false);
+      this.checkAxesButton("RIGHT", false);
+      this.checkAxesButton("LEFT", true);
+    } else if (val === 2) {
+      this.checkAxesButton("UP", false);
+      this.checkAxesButton("DOWN", false);
+      this.checkAxesButton("LEFT", false);
+      this.checkAxesButton("RIGHT", true);
+    } else if (val === 4) {
+      this.checkAxesButton("LEFT", false);
+      this.checkAxesButton("RIGHT", false);
+      this.checkAxesButton("DOWN", false);
+      this.checkAxesButton("UP", true);
+    } else if (val === 8) {
+      this.checkAxesButton("LEFT", false);
+      this.checkAxesButton("RIGHT", false);
+      this.checkAxesButton("UP", false);
+      this.checkAxesButton("DOWN", true);
+    } else if (val === 5) {
+      this.checkAxesButton("RIGHT", false);
+      this.checkAxesButton("DOWN", false);
+      this.checkAxesButton("UP", true);
+      this.checkAxesButton("LEFT", true);
+    } else if (val === 6) {
+      this.checkAxesButton("LEFT", false);
+      this.checkAxesButton("DOWN", false);
+      this.checkAxesButton("RIGHT", true);
+      this.checkAxesButton("UP", true);
+    } else if (val === 9) {
+      this.checkAxesButton("RIGHT", false);
+      this.checkAxesButton("UP", false);
+      this.checkAxesButton("DOWN", true);
+      this.checkAxesButton("LEFT", true);
+    } else if (val === 10) {
+      this.checkAxesButton("LEFT", false);
+      this.checkAxesButton("UP", false);
+      this.checkAxesButton("DOWN", true);
+      this.checkAxesButton("RIGHT", true);
+    } else {
+      this.checkAxesButton("LEFT", false);
+      this.checkAxesButton("RIGHT", false);
+      this.checkAxesButton("UP", false);
+      this.checkAxesButton("DOWN", false);
+    }
+  }
+  checkAxesButton(name, pressed) {
+    if (pressed) {
+      this.axesMap[name].press = true;
+      this.pressAxesButton(name)
+      return true;
+    } else {
+      if (this.axesMap[name].press) {
+        this.axesMap[name].press = false;
+        this.unpressAxesButton(name)
+      }
+    }
+    return;
+  }
+  pressAxesButton(name){
+    if(name === "LEFT"){
+      this.GamePad[0][1] &= ~0x08;
+    }else if(name === "RIGHT"){
+      this.GamePad[0][1] &= ~0x02;
+    }else if(name === "UP"){
+      this.GamePad[0][1] &= ~0x01;
+    }else if(name === "DOWN"){
+      this.GamePad[0][1] &= ~0x04;
+    }
+  }
+  unpressAxesButton(){
+
+  }
+
+
+
+
+
+  UnsetButtonRUN(no) {
+    this.Keybord[no][0] |= 0x08;
+  }
+
+  UnsetButtonSELECT(no) {
+    this.Keybord[no][0] |= 0x04;
+  }
+
+  UnsetButtonSHOT2(no) {
+    this.Keybord[no][0] |= 0x02;
+  }
+
+  UnsetButtonSHOT1(no) {
+    this.Keybord[no][0] |= 0x01;
+  }
+
+  UnsetButtonLEFT(no) {
+    this.Keybord[no][1] |= 0x08;
+  }
+
+  UnsetButtonDOWN(no) {
+    this.Keybord[no][1] |= 0x04;
+  }
+
+  UnsetButtonRIGHT(no) {
+    this.Keybord[no][1] |= 0x02;
+  }
+
+  UnsetButtonUP(no) {
+    this.Keybord[no][1] |= 0x01;
+  }
+
+  UnsetButtonSHOT6(no) {
+    this.Keybord[no][2] |= 0x08;
+  }
+
+  UnsetButtonSHOT5(no) {
+    this.Keybord[no][2] |= 0x04;
+  }
+
+  UnsetButtonSHOT4(no) {
+    this.Keybord[no][2] |= 0x02;
+  }
+
+  UnsetButtonSHOT3(no) {
+    this.Keybord[no][2] |= 0x01;
+  }
+
+  SetButtonRUN(no) {
+    this.Keybord[no][0] &= ~0x08;
+  }
+
+  SetButtonSELECT(no) {
+    this.Keybord[no][0] &= ~0x04;
+  }
+
+  SetButtonSHOT2(no) {
+    this.Keybord[no][0] &= ~0x02;
+  }
+
+  SetButtonSHOT1(no) {
+    this.Keybord[no][0] &= ~0x01;
+  }
+
+  SetButtonLEFT(no) {
+    this.Keybord[no][1] &= ~0x08;
+  }
+
+  SetButtonDOWN(no) {
+    this.Keybord[no][1] &= ~0x04;
+  }
+
+  SetButtonRIGHT(no) {
+    this.Keybord[no][1] &= ~0x02;
+  }
+
+  SetButtonUP(no) {
+    this.Keybord[no][1] &= ~0x01;
+  }
+
+  SetButtonSHOT6(no) {
+    this.Keybord[no][2] &= ~0x08;
+  }
+
+  SetButtonSHOT5(no) {
+    this.Keybord[no][2] &= ~0x04;
+  }
+
+  SetButtonSHOT4(no) {
+    this.Keybord[no][2] &= ~0x02;
+  }
+
+  SetButtonSHOT3(no) {
+    this.Keybord[no][2] &= ~0x01;
   }
 }
