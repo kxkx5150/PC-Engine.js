@@ -1,5 +1,5 @@
 # PC-Engine.js
-PC Engine(TurboGrafx-16) Javascript Emulator 
+Javascript PC Engine(TurboGrafx-16)  Emulator 
 
 <br><br><br>
 
