@@ -1,3 +1,4 @@
+'use strict';
 const pce = new PCE("output");
 
 document.getElementById("fileInput").addEventListener("change", (e) => {
@@ -26,7 +27,7 @@ const RomChange = (arybuf) => {
   }
 	pce.SetROM(rom);
 }
-resizeCanvas = () => {
+const resizeCanvas = () => {
   setTimeout(() => {
     let canvas = document.getElementById("output");
     const wh = window.innerHeight;

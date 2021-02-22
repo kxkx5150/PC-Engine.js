@@ -1,3 +1,4 @@
+'use strict';
 class VCE {
   constructor(core) {
     this.Core = core;

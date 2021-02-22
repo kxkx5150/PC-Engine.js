@@ -1,3 +1,4 @@
+'use strict';
 class TIMER {
   constructor(core) {
     this.Core = core;

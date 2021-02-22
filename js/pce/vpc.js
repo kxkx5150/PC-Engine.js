@@ -1,3 +1,4 @@
+'use strict';
 class VPC {
   constructor(core) {
     this.Core = core;

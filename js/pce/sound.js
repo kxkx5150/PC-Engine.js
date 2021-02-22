@@ -1,6 +1,4 @@
-/* *************** */
-/* **** Sound **** */
-/* *************** */
+'use strict';
 class SOUND {
   constructor(core,actx) {
     this.Core = core;

@@ -1,3 +1,4 @@
+'use strict';
 class MapperBase {
   constructor(core) {
     this.ROM = null;

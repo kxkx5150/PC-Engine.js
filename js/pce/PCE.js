@@ -1,3 +1,4 @@
+'use strict';
 class PCE {
   constructor(canvas_id) {
     this.MainCanvas = null;

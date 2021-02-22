@@ -1,3 +1,4 @@
+'use strict';
 class VDC {
   constructor(core) {
     this.Core = core;

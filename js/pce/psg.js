@@ -1,3 +1,4 @@
+'use strict';
 class PSG {
   constructor(core) {
     this.Core = core;
