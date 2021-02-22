@@ -1,16 +1,12 @@
 # PC-Engine.js
-PC Engine(TurboGrafx-16) Javascript Emulator 
+Javascript PC Engine(TurboGrafx-16)  Emulator 
 
-勉強用にyhzmr442氏のjspceを参考にしています。
-
-<br>
+<br><br><br>
 
 Demo  
 https://kxkx5150.github.io/PC-Engine.js/
 
-<br><br><br>
-
-
+<br><br><br><br>
 
 jspce  
 https://github.com/yhzmr442/jspce
