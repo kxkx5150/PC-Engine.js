@@ -146,6 +146,7 @@ class VDC {
       let black = palettes[0x100];
       let sw = this.ScreenSize[this.Core.vce.VCEBaseClock];
       let bgl0 = this.VDC[0].BGLine;
+      let fb32 = this.Core.framebuffer_u32;
       if (this.Core.SuperGrafx) {
         //VPC
         let window1 = this.Core.vpc.VPCWindow1;
@@ -188,16 +189,12 @@ class VDC {
               color = black;
               break;
           }
-          data[imageIndex] = color.r;
-          data[imageIndex + 1] = color.g;
-          data[imageIndex + 2] = color.b;
+          fb32[imageIndex/4] = (255 << 24) | (color.b << 16) | (color.g << 8) | color.r;
         }
       } else {
         for (let bgx = 0; bgx < sw; bgx++, imageIndex += 4) {
           let color = palettes[bgl0[bgx]];
-          data[imageIndex] = color.r;
-          data[imageIndex + 1] = color.g;
-          data[imageIndex + 2] = color.b;
+          fb32[imageIndex/4] = (255 << 24) | (color.b << 16) | (color.g << 8) | color.r;
         }
       }
     }

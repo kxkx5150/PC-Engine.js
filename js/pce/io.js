@@ -3,6 +3,8 @@ class IO {
     this.Core = core;
     this.JoystickSEL = 0;
     this.JoystickCLR = 0;
+    this.selected = -1;
+    this.pads = [];
     this.Keybord = new Array(5).fill([]);
     this.Keybord = this.Keybord.map((d) => {
       return new Array(4);
@@ -52,6 +54,12 @@ class IO {
         press: false,
       },
     };
+    window.addEventListener("gamepadconnected", (e) => {
+      this.pads[e.gamepad.index] = e.gamepad;
+      if (this.selected === -1) this.selected = e.gamepad.index;
+      document.getElementById("gamepad_info").textContent = "Gamepad connected ";
+      document.getElementById("gamepad_name").textContent = e.gamepad.id;
+    });
     this.button_info_elem = document.getElementById("gamepad_presse_button");
     this.createOptions("start_button");
     this.createOptions("select_button");
@@ -244,7 +252,7 @@ class IO {
     }
 
     let pads = navigator.getGamepads();
-    let pad = pads[1];
+    let pad = pads[this.selected];
     if (pad) {
       this.checkButton("START", pad.buttons);
       this.checkButton("SELECT", pad.buttons);
