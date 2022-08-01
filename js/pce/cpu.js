@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 class CPU {
   constructor(core, mem) {
     this.Core = core;
@@ -35,520 +35,30 @@ class CPU {
     });
     this.NZCacheTable[0x00] = 0x02;
     this.OpCycles = [
-      8,
-      7,
-      3,
-      4,
-      6,
-      4,
-      6,
-      7,
-      3,
-      2,
-      2,
-      2,
-      7,
-      5,
-      7,
-      6,
-      2,
-      7,
-      7,
-      4,
-      6,
-      4,
-      6,
-      7,
-      2,
-      5,
-      2,
-      2,
-      7,
-      5,
-      7,
-      6,
-      7,
-      7,
-      3,
-      4,
-      4,
-      4,
-      6,
-      7,
-      3,
-      2,
-      2,
-      2,
-      5,
-      5,
-      7,
-      6,
-      2,
-      7,
-      7,
-      2,
-      4,
-      4,
-      6,
-      7,
-      2,
-      5,
-      2,
-      2,
-      5,
-      5,
-      7,
-      6,
-      7,
-      7,
-      3,
-      4,
-      8,
-      4,
-      6,
-      7,
-      3,
-      2,
-      2,
-      2,
-      4,
-      5,
-      7,
-      6,
-      2,
-      7,
-      7,
-      5,
-      2,
-      4,
-      6,
-      7,
-      2,
-      5,
-      3,
-      2,
-      2,
-      5,
-      7,
-      6,
-      7,
-      7,
-      2,
-      2,
-      4,
-      4,
-      6,
-      7,
-      3,
-      2,
-      2,
-      2,
-      7,
-      5,
-      7,
-      6,
-      2,
-      7,
-      7,
-      0,
-      4,
-      4,
-      6,
-      7,
-      2,
-      5,
-      3,
-      2,
-      7,
-      5,
-      7,
-      6,
-      4,
-      7,
-      2,
-      7,
-      4,
-      4,
-      4,
-      7,
-      2,
-      2,
-      2,
-      2,
-      5,
-      5,
-      5,
-      6,
-      2,
-      7,
-      7,
-      8,
-      4,
-      4,
-      4,
-      7,
-      2,
-      5,
-      2,
-      2,
-      5,
-      5,
-      5,
-      6,
-      2,
-      7,
-      2,
-      7,
-      4,
-      4,
-      4,
-      7,
-      2,
-      2,
-      2,
-      2,
-      5,
-      5,
-      5,
-      6,
-      2,
-      7,
-      7,
-      8,
-      4,
-      4,
-      4,
-      7,
-      2,
-      5,
-      2,
-      2,
-      5,
-      5,
-      5,
-      6,
-      2,
-      7,
-      2,
-      0,
-      4,
-      4,
-      6,
-      7,
-      2,
-      2,
-      2,
-      2,
-      5,
-      5,
-      7,
-      6,
-      2,
-      7,
-      7,
-      0,
-      2,
-      4,
-      6,
-      7,
-      2,
-      5,
-      3,
-      2,
-      2,
-      5,
-      7,
-      6,
-      2,
-      7,
-      2,
-      0,
-      4,
-      4,
-      6,
-      7,
-      2,
-      2,
-      2,
-      2,
-      5,
-      5,
-      7,
-      6,
-      2,
-      7,
-      7,
-      0,
-      2,
-      4,
-      6,
-      7,
-      2,
-      5,
-      3,
-      2,
-      2,
-      5,
-      7,
-      6,
+      8, 7, 3, 4, 6, 4, 6, 7, 3, 2, 2, 2, 7, 5, 7, 6, 2, 7, 7, 4, 6, 4, 6, 7, 2,
+      5, 2, 2, 7, 5, 7, 6, 7, 7, 3, 4, 4, 4, 6, 7, 3, 2, 2, 2, 5, 5, 7, 6, 2, 7,
+      7, 2, 4, 4, 6, 7, 2, 5, 2, 2, 5, 5, 7, 6, 7, 7, 3, 4, 8, 4, 6, 7, 3, 2, 2,
+      2, 4, 5, 7, 6, 2, 7, 7, 5, 2, 4, 6, 7, 2, 5, 3, 2, 2, 5, 7, 6, 7, 7, 2, 2,
+      4, 4, 6, 7, 3, 2, 2, 2, 7, 5, 7, 6, 2, 7, 7, 0, 4, 4, 6, 7, 2, 5, 3, 2, 7,
+      5, 7, 6, 4, 7, 2, 7, 4, 4, 4, 7, 2, 2, 2, 2, 5, 5, 5, 6, 2, 7, 7, 8, 4, 4,
+      4, 7, 2, 5, 2, 2, 5, 5, 5, 6, 2, 7, 2, 7, 4, 4, 4, 7, 2, 2, 2, 2, 5, 5, 5,
+      6, 2, 7, 7, 8, 4, 4, 4, 7, 2, 5, 2, 2, 5, 5, 5, 6, 2, 7, 2, 0, 4, 4, 6, 7,
+      2, 2, 2, 2, 5, 5, 7, 6, 2, 7, 7, 0, 2, 4, 6, 7, 2, 5, 3, 2, 2, 5, 7, 6, 2,
+      7, 2, 0, 4, 4, 6, 7, 2, 2, 2, 2, 5, 5, 7, 6, 2, 7, 7, 0, 2, 4, 6, 7, 2, 5,
+      3, 2, 2, 5, 7, 6,
     ];
     this.OpBytes = [
-      0,
-      2,
-      1,
-      2,
-      2,
-      2,
-      2,
-      2,
-      1,
-      2,
-      1,
-      1,
-      3,
-      3,
-      3,
-      0,
-      0,
-      2,
-      2,
-      2,
-      2,
-      2,
-      2,
-      2,
-      1,
-      3,
-      1,
-      1,
-      3,
-      3,
-      3,
-      0,
-      0,
-      2,
-      1,
-      2,
-      2,
-      2,
-      2,
-      2,
-      1,
-      2,
-      1,
-      1,
-      3,
-      3,
-      3,
-      0,
-      0,
-      2,
-      2,
-      1,
-      2,
-      2,
-      2,
-      2,
-      1,
-      3,
-      1,
-      1,
-      3,
-      3,
-      3,
-      0,
-      0,
-      2,
-      1,
-      2,
-      0,
-      2,
-      2,
-      2,
-      1,
-      2,
-      1,
-      1,
-      0,
-      3,
-      3,
-      0,
-      0,
-      2,
-      2,
-      2,
-      1,
-      2,
-      2,
-      2,
-      1,
-      3,
-      1,
-      1,
-      1,
-      3,
-      3,
-      0,
-      0,
-      2,
-      1,
-      1,
-      2,
-      2,
-      2,
-      2,
-      1,
-      2,
-      1,
-      1,
-      0,
-      3,
-      3,
-      0,
-      0,
-      2,
-      2,
-      0,
-      2,
-      2,
-      2,
-      2,
-      1,
-      3,
-      1,
-      1,
-      0,
-      3,
-      3,
-      0,
-      0,
-      2,
-      1,
-      3,
-      2,
-      2,
-      2,
-      2,
-      1,
-      2,
-      1,
-      1,
-      3,
-      3,
-      3,
-      0,
-      0,
-      2,
-      2,
-      4,
-      2,
-      2,
-      2,
-      2,
-      1,
-      3,
-      1,
-      1,
-      3,
-      3,
-      3,
-      0,
-      2,
-      2,
-      2,
-      3,
-      2,
-      2,
-      2,
-      2,
-      1,
-      2,
-      1,
-      1,
-      3,
-      3,
-      3,
-      0,
-      0,
-      2,
-      2,
-      4,
-      2,
-      2,
-      2,
-      2,
-      1,
-      3,
-      1,
-      1,
-      3,
-      3,
-      3,
-      0,
-      2,
-      2,
-      1,
-      0,
-      2,
-      2,
-      2,
-      2,
-      1,
-      2,
-      1,
-      1,
-      3,
-      3,
-      3,
-      0,
-      0,
-      2,
-      2,
-      0,
-      1,
-      2,
-      2,
-      2,
-      1,
-      3,
-      1,
-      1,
-      1,
-      3,
-      3,
-      0,
-      2,
-      2,
-      1,
-      0,
-      2,
-      2,
-      2,
-      2,
-      1,
-      2,
-      1,
-      1,
-      3,
-      3,
-      3,
-      0,
-      0,
-      2,
-      2,
-      0,
-      1,
-      2,
-      2,
-      2,
-      1,
-      3,
-      1,
-      1,
-      1,
-      3,
-      3,
-      0,
+      0, 2, 1, 2, 2, 2, 2, 2, 1, 2, 1, 1, 3, 3, 3, 0, 0, 2, 2, 2, 2, 2, 2, 2, 1,
+      3, 1, 1, 3, 3, 3, 0, 0, 2, 1, 2, 2, 2, 2, 2, 1, 2, 1, 1, 3, 3, 3, 0, 0, 2,
+      2, 1, 2, 2, 2, 2, 1, 3, 1, 1, 3, 3, 3, 0, 0, 2, 1, 2, 0, 2, 2, 2, 1, 2, 1,
+      1, 0, 3, 3, 0, 0, 2, 2, 2, 1, 2, 2, 2, 1, 3, 1, 1, 1, 3, 3, 0, 0, 2, 1, 1,
+      2, 2, 2, 2, 1, 2, 1, 1, 0, 3, 3, 0, 0, 2, 2, 0, 2, 2, 2, 2, 1, 3, 1, 1, 0,
+      3, 3, 0, 0, 2, 1, 3, 2, 2, 2, 2, 1, 2, 1, 1, 3, 3, 3, 0, 0, 2, 2, 4, 2, 2,
+      2, 2, 1, 3, 1, 1, 3, 3, 3, 0, 2, 2, 2, 3, 2, 2, 2, 2, 1, 2, 1, 1, 3, 3, 3,
+      0, 0, 2, 2, 4, 2, 2, 2, 2, 1, 3, 1, 1, 3, 3, 3, 0, 2, 2, 1, 0, 2, 2, 2, 2,
+      1, 2, 1, 1, 3, 3, 3, 0, 0, 2, 2, 0, 1, 2, 2, 2, 1, 3, 1, 1, 1, 3, 3, 0, 2,
+      2, 1, 0, 2, 2, 2, 2, 1, 2, 1, 1, 3, 3, 3, 0, 0, 2, 2, 0, 1, 2, 2, 2, 1, 3,
+      1, 1, 1, 3, 3, 0,
     ];
   }
   CPUReset() {
@@ -578,7 +88,8 @@ class CPU {
   CPURun() {
     this.ProgressClock = 0;
     let tmp = this.LastInt;
-    this.LastInt = (this.P & this.IFlag) == 0x00 ? this.Core.irq.GetIntStatus() : 0x00;
+    this.LastInt =
+      (this.P & this.IFlag) == 0x00 ? this.Core.irq.GetIntStatus() : 0x00;
     if (tmp != 0x00 && this.TransferLen == 0) {
       this.LastInt = 0x00;
       if ((tmp & this.Core.irq.TIQFlag) == this.Core.irq.TIQFlag) {
@@ -954,6 +465,7 @@ class CPU {
         this.Y = 0x00;
         this.ClearTFlag();
         break;
+
       case 0x18:
         this.ClearCFlag();
         this.ClearTFlag();
@@ -1228,7 +740,10 @@ class CPU {
         this.TST(this.PC + 1, 0x2000 | this.mem.Get(this.PC + 2));
         break;
       case 0xa3:
-        this.TST(this.PC + 1, 0x2000 | ((this.mem.Get(this.PC + 2) + this.X) & 0xff));
+        this.TST(
+          this.PC + 1,
+          0x2000 | ((this.mem.Get(this.PC + 2) + this.X) & 0xff)
+        );
         break;
       case 0x93:
         this.TST(this.PC + 1, this.mem.Get16(this.PC + 2));
@@ -1363,15 +878,24 @@ class CPU {
         this.ClearTFlag();
         break;
       case 0x03:
-        this.Core.vdc.SetVDCRegister(this.mem.Get(this.PC + 1), this.Core.vpc.VDCSelect);
+        this.Core.vdc.SetVDCRegister(
+          this.mem.Get(this.PC + 1),
+          this.Core.vpc.VDCSelect
+        );
         this.ClearTFlag();
         break;
       case 0x13:
-        this.Core.vdc.SetVDCLow(this.mem.Get(this.PC + 1), this.Core.vpc.VDCSelect);
+        this.Core.vdc.SetVDCLow(
+          this.mem.Get(this.PC + 1),
+          this.Core.vpc.VDCSelect
+        );
         this.ClearTFlag();
         break;
       case 0x23:
-        this.Core.vdc.SetVDCHigh(this.mem.Get(this.PC + 1), this.Core.vpc.VDCSelect);
+        this.Core.vdc.SetVDCHigh(
+          this.mem.Get(this.PC + 1),
+          this.Core.vpc.VDCSelect
+        );
         this.ClearTFlag();
         break;
       case 0x53:
@@ -1379,14 +903,16 @@ class CPU {
         var bit = 0x01;
         if (data == 0x00) data = this.mem.MPRSelect;
         else this.mem.MPRSelect = data;
-        for (var i = 0; i < 8; i++) if ((data & (bit << i)) != 0x00) this.mem.MPR[i] = this.A << 13;
+        for (var i = 0; i < 8; i++)
+          if ((data & (bit << i)) != 0x00) this.mem.MPR[i] = this.A << 13;
         break;
       case 0x43:
         var data = this.mem.Get(this.PC + 1);
         var bit = 0x01;
         if (data == 0x00) data = this.mem.MPRSelect;
         else this.mem.MPRSelect = data;
-        for (var i = 0; i < 8; i++) if ((data & (bit << i)) != 0x00) this.A = this.mem.MPR[i] >>> 13;
+        for (var i = 0; i < 8; i++)
+          if ((data & (bit << i)) != 0x00) this.A = this.mem.MPR[i] >>> 13;
         break;
       case 0xf3:
         if (this.TransferLen == 0) {
@@ -1489,7 +1015,8 @@ class CPU {
         break;
     }
     this.PC += this.OpBytes[op];
-    this.ProgressClock = (this.ProgressClock + this.OpCycles[op]) * this.CPUBaseClock;
+    this.ProgressClock =
+      (this.ProgressClock + this.OpCycles[op]) * this.CPUBaseClock;
   }
   Adder(address, neg) {
     let data0;
@@ -1502,7 +1029,8 @@ class CPU {
     let carry = this.P & 0x01;
     let tmp = data0 + data1 + carry;
     if ((this.P & this.DFlag) == 0x00) {
-      if ((((~data0 & ~data1 & tmp) | (data0 & data1 & ~tmp)) & 0x80) == 0x80) this.SetVFlag();
+      if ((((~data0 & ~data1 & tmp) | (data0 & data1 & ~tmp)) & 0x80) == 0x80)
+        this.SetVFlag();
       else this.ClearVFlag();
     } else {
       this.ProgressClock += 1;
@@ -1518,7 +1046,8 @@ class CPU {
     else this.ClearCFlag();
     tmp &= 0xff;
     this.SetNZFlag(tmp);
-    if (!neg && (this.P & this.TFlag) == this.TFlag) this.mem.Set(0x2000 | this.X, tmp);
+    if (!neg && (this.P & this.TFlag) == this.TFlag)
+      this.mem.Set(0x2000 | this.X, tmp);
     else this.A = tmp;
     this.ClearTFlag();
   }
@@ -1667,14 +1196,17 @@ class CPU {
   BIT(address) {
     let tmp = this.mem.Get(address);
     this.SetNZFlag(this.A & tmp);
-    this.P = (this.P & ~(this.NFlag | this.VFlag)) | (tmp & (this.NFlag | this.VFlag));
+    this.P =
+      (this.P & ~(this.NFlag | this.VFlag)) | (tmp & (this.NFlag | this.VFlag));
     this.ClearTFlag();
   }
   TST(address0, address1) {
     let tmp0 = this.mem.Get(address0);
     let tmp1 = this.mem.Get(address1);
     this.SetNZFlag(tmp0 & tmp1);
-    this.P = (this.P & ~(this.NFlag | this.VFlag)) | (tmp1 & (this.NFlag | this.VFlag));
+    this.P =
+      (this.P & ~(this.NFlag | this.VFlag)) |
+      (tmp1 & (this.NFlag | this.VFlag));
     this.ClearTFlag();
   }
   TRB(address) {
@@ -1682,7 +1214,8 @@ class CPU {
     let res = ~this.A & tmp;
     this.mem.Set(address, res);
     this.SetNZFlag(res);
-    this.P = (this.P & ~(this.NFlag | this.VFlag)) | (tmp & (this.NFlag | this.VFlag));
+    this.P =
+      (this.P & ~(this.NFlag | this.VFlag)) | (tmp & (this.NFlag | this.VFlag));
     this.ClearTFlag();
   }
   TSB(address) {
@@ -1690,7 +1223,8 @@ class CPU {
     let res = this.A | tmp;
     this.mem.Set(address, res);
     this.SetNZFlag(res);
-    this.P = (this.P & ~(this.NFlag | this.VFlag)) | (tmp & (this.NFlag | this.VFlag));
+    this.P =
+      (this.P & ~(this.NFlag | this.VFlag)) | (tmp & (this.NFlag | this.VFlag));
     this.ClearTFlag();
   }
   Load(address) {
@@ -1716,10 +1250,14 @@ class CPU {
     return this.mem.Get16(0x2000 | this.mem.Get(this.PC + 1));
   }
   IND_X() {
-    return this.mem.Get16(0x2000 | ((this.mem.Get(this.PC + 1) + this.X) & 0xff));
+    return this.mem.Get16(
+      0x2000 | ((this.mem.Get(this.PC + 1) + this.X) & 0xff)
+    );
   }
   IND_Y() {
-    return (this.mem.Get16(0x2000 | this.mem.Get(this.PC + 1)) + this.Y) & 0xffff;
+    return (
+      (this.mem.Get16(0x2000 | this.mem.Get(this.PC + 1)) + this.Y) & 0xffff
+    );
   }
   ABS() {
     return this.mem.Get16(this.PC + 1);

@@ -7,7 +7,6 @@ class PCE {
     this.framebuffer_u32 = null;
     this.ACtx = new AudioContext();
     this.sampleRate = 48000;
-    this.SuperGrafx = false;
     this.CountryTypePCE = 0x40;
     this.CountryTypeTG16 = 0x00;
     this.CountryType = this.CountryTypePCE;
@@ -67,7 +66,7 @@ class PCE {
     this.framebuffer_u32 = new Uint32Array(this.ImageData.data.buffer);
     let fb32 = this.framebuffer_u32;
     for (let i = 0; i < this.vdc.ScreenWidthMAX * this.vdc.ScreenHeightMAX * 4; i += 4) {
-      fb32[i/4] = (255 << 24) | (0 << 16) | (0 << 8) | 0;
+      fb32[i / 4] = (255 << 24) | (0 << 16) | (0 << 8) | 0;
     }
     this.Ctx.putImageData(this.ImageData, 0, 0);
     return true;

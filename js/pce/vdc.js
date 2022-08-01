@@ -115,13 +115,9 @@ class VDC {
   VDCRun() {
     this.VDCProcessDMA(0);
     this.VDC[0].VDCProgressClock += this.Core.cpu.ProgressClock;
-    if (this.Core.SuperGrafx) {
-      this.VDCProcessDMA(1);
-      this.VDC[1].VDCProgressClock += this.Core.cpu.ProgressClock;
-    }
+
     while (this.VDC[0].VDCProgressClock >= this.VDCLineClock) {
       this.VDCProcess(0);
-      if (this.Core.SuperGrafx) this.VDCProcess(1);
     }
     this.VDCPutLineProgressClock += this.Core.cpu.ProgressClock;
     if (this.VDCPutLineProgressClock >= this.VDCLineClock) {
@@ -131,10 +127,6 @@ class VDC {
         this.VDCPutLine = 0;
         this.GetScreenSize(0);
         this.VDC[0].DrawBGYLine = 4;
-        if (this.Core.SuperGrafx) {
-          this.GetScreenSize(1);
-          this.VDC[1].DrawBGYLine = 4;
-        }
         this.Core.DrawFlag = true;
         this.Core.Ctx.putImageData(this.Core.ImageData, 0, 0);
       }
@@ -148,55 +140,10 @@ class VDC {
       let sw = this.ScreenSize[this.Core.vce.VCEBaseClock];
       let bgl0 = this.VDC[0].BGLine;
       let fb32 = this.Core.framebuffer_u32;
-      if (this.Core.SuperGrafx) {
-        //VPC
-        let window1 = this.Core.vpc.VPCWindow1;
-        let window2 = this.Core.vpc.VPCWindow2;
-        let priority = this.Core.vpc.VPCPriority;
-        let bgl1 = this.VDC[1].BGLine;
-        for (let bgx = 0; bgx < sw; bgx++, imageIndex += 4) {
-          let wflag = 0x00;
-          if (bgx >= window1) wflag |= 0x01;
-          if (bgx <= window2) wflag |= 0x02;
-          let bg0 = bgl0[bgx];
-          let bg1 = bgl1[bgx];
-          let color;
-          switch (priority[wflag]) {
-            case 0x04 | 0x03:
-              if (bg0 > 0x100 || bg1 > 0x100) color = palettes[bg0 > 0x100 ? bg0 : bg1];
-              else color = palettes[(bg0 & 0x0ff) != 0x000 ? bg0 : bg1];
-              break;
-            case 0x08 | 0x03:
-              if (bg0 < 0x100 && bg0 != 0x000) color = palettes[bg0];
-              else color = palettes[(bg1 & 0x0ff) != 0x000 ? bg1 : bg0];
-              break;
-            case 0x00 | 0x03:
-            case 0x0c | 0x03:
-              color = palettes[(bg0 & 0x0ff) != 0x000 ? bg0 : bg1];
-              break;
-            case 0x00 | 0x01:
-            case 0x04 | 0x01:
-            case 0x08 | 0x01:
-            case 0x0c | 0x01:
-              color = palettes[bg0];
-              break;
-            case 0x00 | 0x02:
-            case 0x04 | 0x02:
-            case 0x08 | 0x02:
-            case 0x0c | 0x02:
-              color = palettes[bg1];
-              break;
-            default:
-              color = black;
-              break;
-          }
-          fb32[imageIndex/4] = (255 << 24) | (color.b << 16) | (color.g << 8) | color.r;
-        }
-      } else {
-        for (let bgx = 0; bgx < sw; bgx++, imageIndex += 4) {
-          let color = palettes[bgl0[bgx]];
-          fb32[imageIndex/4] = (255 << 24) | (color.b << 16) | (color.g << 8) | color.r;
-        }
+
+      for (let bgx = 0; bgx < sw; bgx++, imageIndex += 4) {
+        let color = palettes[bgl0[bgx]];
+        fb32[imageIndex / 4] = (255 << 24) | (color.b << 16) | (color.g << 8) | color.r;
       }
     }
   }

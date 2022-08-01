@@ -24,46 +24,15 @@ class RAM {
     } else if (address < 0x1fe000) {
       return 0xff;
     } else if (address < 0x1fe400) {
-      if (this.Core.SuperGrafx) {
-        let tmp = address & 0x00001f;
-        if (tmp < 0x00008) {
-          switch (address & 0x000003) {
-            case 0x00:
-              return this.Core.vdc.GetVDCStatus(0);
-            case 0x01:
-              return 0x00;
-            case 0x02:
-              return this.Core.vdc.GetVDCLow(0);
-            case 0x03:
-              return this.Core.vdc.GetVDCHigh(0);
-          }
-        } else if (tmp < 0x00010) {
-          return this.Core.vpc.GetVPC(tmp & 0x000007);
-        } else if (tmp < 0x00018) {
-          switch (address & 0x000003) {
-            case 0x00:
-              return this.Core.vdc.GetVDCStatus(1);
-            case 0x01:
-              return 0x00;
-            case 0x02:
-              return this.Core.vdc.GetVDCLow(1);
-            case 0x03:
-              return this.Core.vdc.GetVDCHigh(1);
-          }
-        } else {
-          return 0xff;
-        }
-      } else {
-        switch (address & 0x000003) {
-          case 0x00:
-            return this.Core.vdc.GetVDCStatus(0);
-          case 0x01:
-            return 0x00;
-          case 0x02:
-            return this.Core.vdc.GetVDCLow(0);
-          case 0x03:
-            return this.Core.vdc.GetVDCHigh(0);
-        }
+      switch (address & 0x000003) {
+        case 0x00:
+          return this.Core.vdc.GetVDCStatus(0);
+        case 0x01:
+          return 0x00;
+        case 0x02:
+          return this.Core.vdc.GetVDCLow(0);
+        case 0x03:
+          return this.Core.vdc.GetVDCHigh(0);
       }
     } else if (address < 0x1fe800) {
       switch (address & 0x000007) {
@@ -74,9 +43,7 @@ class RAM {
         default:
           return 0x00;
       }
-    }
-
-    if (address < 0x1fec00) {
+    } else if (address < 0x1fec00) {
       return this.Core.psg.GetPSG(address & 0x00000f);
     } else if (address < 0x1ff000) {
       return this.Core.timer.ReadTimerCounter();
@@ -111,49 +78,18 @@ class RAM {
     } else if (address < 0x1fe000) {
       return;
     } else if (address < 0x1fe400) {
-      if (this.Core.SuperGrafx) {
-        let tmp = address & 0x00001f;
-        if (tmp < 0x00008) {
-          switch (address & 0x000003) {
-            case 0x00:
-              this.Core.vdc.SetVDCRegister(data, 0);
-              break;
-            case 0x02:
-              this.Core.vdc.SetVDCLow(data, 0);
-              break;
-            case 0x03:
-              this.Core.vdc.SetVDCHigh(data, 0);
-              break;
-          }
-        } else if (tmp < 0x00010) {
-          this.Core.vpc.SetVPC(tmp & 0x000007, data);
-        } else if (tmp < 0x00018) {
-          switch (address & 0x000003) {
-            case 0x00:
-              this.Core.vdc.SetVDCRegister(data, 1);
-              break;
-            case 0x02:
-              this.Core.vdc.SetVDCLow(data, 1);
-              break;
-            case 0x03:
-              this.Core.vdc.SetVDCHigh(data, 1);
-              break;
-          }
-        }
-      } else {
-        switch (address & 0x000003) {
-          case 0x00:
-            this.Core.vdc.SetVDCRegister(data, 0);
-            break;
-          case 0x01:
-            break;
-          case 0x02:
-            this.Core.vdc.SetVDCLow(data, 0);
-            break;
-          case 0x03:
-            this.Core.vdc.SetVDCHigh(data, 0);
-            break;
-        }
+      switch (address & 0x000003) {
+        case 0x00:
+          this.Core.vdc.SetVDCRegister(data, 0);
+          break;
+        case 0x01:
+          break;
+        case 0x02:
+          this.Core.vdc.SetVDCLow(data, 0);
+          break;
+        case 0x03:
+          this.Core.vdc.SetVDCHigh(data, 0);
+          break;
       }
       return;
     } else if (address < 0x1fe800) {
@@ -213,7 +149,7 @@ class RAM {
   }
   Init() {
     this.RAM.fill(0x00);
-    this.RAMMask = this.Core.SuperGrafx ? 0x7fff : 0x1fff;
+    this.RAMMask = 0x1fff;
     this.StorageReset();
   }
 }
