@@ -67,7 +67,7 @@ class CPU {
     this.TransferLen = 0;
     this.TransferAlt = 0;
     this.CPUBaseClock = this.BaseClock1;
-    this.SetIFlag();
+    this.P |= this.IFlag;
     this.PC = this.mem.Get16(0xfffe);
   }
   CPUInit() {
@@ -108,7 +108,7 @@ class CPU {
         this.Push(this.PCH());
         this.Push(this.PCL());
         this.Push(this.P);
-        this.SetIFlag();
+        this.P |= this.IFlag;
         this.PC = this.mem.Get16(0xfff6);
       }
       this.ProgressClock = 8 * this.CPUBaseClock;
@@ -417,7 +417,7 @@ class CPU {
         this.Push(this.PCH());
         this.Push(this.PCL());
         this.PC = tmp;
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0x40:
         this.P = this.Pull();
@@ -425,77 +425,77 @@ class CPU {
         this.toPCH(this.Pull());
         break;
       case 0x60:
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         this.toPCL(this.Pull());
         this.toPCH(this.Pull());
         this.PC++;
         break;
       case 0x4c:
         this.PC = this.ABS();
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0x6c:
         this.PC = this.ABS_IND();
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0x7c:
         this.PC = this.ABS_X_IND();
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0x00:
         this.PC += 2;
         this.Push(this.PCH());
         this.Push(this.PCL());
-        this.SetBFlag();
+        this.P |= this.BFlag;
         this.Push(this.P);
-        this.ClearDFlag();
-        this.ClearTFlag();
-        this.SetIFlag();
+        this.P &= ~this.DFlag;
+        this.P &= ~this.TFlag;
+        this.P |= this.IFlag;
         this.PC = this.mem.Get16(0xfff6);
         break;
       case 0x62:
         this.A = 0x00;
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0x82:
         this.X = 0x00;
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0xc2:
         this.Y = 0x00;
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
 
       case 0x18:
-        this.ClearCFlag();
-        this.ClearTFlag();
+        this.P &= ~this.CFlag;
+        this.P &= ~this.TFlag;
         break;
       case 0xd8:
-        this.ClearDFlag();
-        this.ClearTFlag();
+        this.P &= ~this.DFlag;
+        this.P &= ~this.TFlag;
         break;
       case 0x58:
-        this.ClearIFlag();
-        this.ClearTFlag();
+        this.P &= ~this.IFlag;
+        this.P &= ~this.TFlag;
         break;
       case 0xb8:
-        this.ClearVFlag();
-        this.ClearTFlag();
+        this.P &= ~this.VFlag;
+        this.P &= ~this.TFlag;
         break;
       case 0x38:
-        this.SetCFlag();
-        this.ClearTFlag();
+        this.P |= this.CFlag;
+        this.P &= ~this.TFlag;
         break;
       case 0xf8:
-        this.SetDFlag();
-        this.ClearTFlag();
+        this.P |= this.DFlag;
+        this.P &= ~this.TFlag;
         break;
       case 0x78:
-        this.SetIFlag();
-        this.ClearTFlag();
+        this.P |= this.IFlag;
+        this.P &= ~this.TFlag;
         break;
       case 0xf4:
-        this.SetTFlag();
+        this.P |= this.TFlag;
         break;
       case 0xc9:
         this.Compare(this.A, this.PC + 1);
@@ -594,24 +594,24 @@ class CPU {
         break;
       case 0x48:
         this.Push(this.A);
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0x08:
         this.Push(this.P);
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0xda:
         this.Push(this.X);
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0x5a:
         this.Push(this.Y);
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0x68:
         this.A = this.Pull();
         this.SetNZFlag(this.A);
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0x28:
         this.P = this.Pull();
@@ -619,12 +619,12 @@ class CPU {
       case 0xfa:
         this.X = this.Pull();
         this.SetNZFlag(this.X);
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0x7a:
         this.Y = this.Pull();
         this.SetNZFlag(this.Y);
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0x07:
         this.RMBi(0);
@@ -678,48 +678,48 @@ class CPU {
         var tmp = this.A;
         this.A = this.X;
         this.X = tmp;
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0x42:
         var tmp = this.A;
         this.A = this.Y;
         this.Y = tmp;
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0x02:
         var tmp = this.X;
         this.X = this.Y;
         this.Y = tmp;
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0xaa:
         this.X = this.A;
         this.SetNZFlag(this.X);
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0xa8:
         this.Y = this.A;
         this.SetNZFlag(this.Y);
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0xba:
         this.X = this.S;
         this.SetNZFlag(this.X);
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0x8a:
         this.A = this.X;
         this.SetNZFlag(this.A);
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0x9a:
         this.S = this.X;
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0x98:
         this.A = this.Y;
         this.SetNZFlag(this.A);
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0x89:
         this.BIT(this.PC + 1);
@@ -875,28 +875,28 @@ class CPU {
         this.Store(this.ABS_X(), 0x00);
         break;
       case 0xea:
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0x03:
         this.Core.vdc.SetVDCRegister(
           this.mem.Get(this.PC + 1),
           this.Core.vpc.VDCSelect
         );
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0x13:
         this.Core.vdc.SetVDCLow(
           this.mem.Get(this.PC + 1),
           this.Core.vpc.VDCSelect
         );
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0x23:
         this.Core.vdc.SetVDCHigh(
           this.mem.Get(this.PC + 1),
           this.Core.vpc.VDCSelect
         );
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
       case 0x53:
         var data = this.mem.Get(this.PC + 1);
@@ -929,7 +929,7 @@ class CPU {
         this.TransferAlt = this.TransferAlt == 1 ? -1 : 1;
         this.ProgressClock += 6;
         if (this.TransferLen == 0) {
-          this.ClearTFlag();
+          this.P &= ~this.TFlag;
           this.PC += 7;
         }
         break;
@@ -946,7 +946,7 @@ class CPU {
         this.TransferLen = (this.TransferLen - 1) & 0xffff;
         this.ProgressClock += 6;
         if (this.TransferLen == 0) {
-          this.ClearTFlag();
+          this.P &= ~this.TFlag;
           this.PC += 7;
         }
         break;
@@ -965,7 +965,7 @@ class CPU {
         this.TransferAlt = this.TransferAlt == 1 ? -1 : 1;
         this.ProgressClock += 6;
         if (this.TransferLen == 0) {
-          this.ClearTFlag();
+          this.P &= ~this.TFlag;
           this.PC += 7;
         }
         break;
@@ -982,7 +982,7 @@ class CPU {
         this.TransferLen = (this.TransferLen - 1) & 0xffff;
         this.ProgressClock += 6;
         if (this.TransferLen == 0) {
-          this.ClearTFlag();
+          this.P &= ~this.TFlag;
           this.PC += 7;
         }
         break;
@@ -998,20 +998,20 @@ class CPU {
         this.TransferLen = (this.TransferLen - 1) & 0xffff;
         this.ProgressClock += 6;
         if (this.TransferLen == 0) {
-          this.ClearTFlag();
+          this.P &= ~this.TFlag;
           this.PC += 7;
         }
         break;
       case 0xd4:
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         this.CPUBaseClock = this.BaseClock7;
         break;
       case 0x54:
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         this.CPUBaseClock = this.BaseClock1;
         break;
       default:
-        this.ClearTFlag();
+        this.P &= ~this.TFlag;
         break;
     }
     this.PC += this.OpBytes[op];
@@ -1030,8 +1030,8 @@ class CPU {
     let tmp = data0 + data1 + carry;
     if ((this.P & this.DFlag) == 0x00) {
       if ((((~data0 & ~data1 & tmp) | (data0 & data1 & ~tmp)) & 0x80) == 0x80)
-        this.SetVFlag();
-      else this.ClearVFlag();
+        this.P |= this.VFlag;
+      else this.P &= ~this.VFlag;
     } else {
       this.ProgressClock += 1;
       if (neg) {
@@ -1042,14 +1042,14 @@ class CPU {
         if ((tmp & 0x1f0) > 0x90) tmp += 0x60;
       }
     }
-    if (tmp > 0xff) this.SetCFlag();
-    else this.ClearCFlag();
+    if (tmp > 0xff) this.P |= this.CFlag;
+    else this.P &= ~this.CFlag;
     tmp &= 0xff;
     this.SetNZFlag(tmp);
     if (!neg && (this.P & this.TFlag) == this.TFlag)
       this.mem.Set(0x2000 | this.X, tmp);
     else this.A = tmp;
-    this.ClearTFlag();
+    this.P &= ~this.TFlag;
   }
   ADC(address) {
     this.Adder(address, false);
@@ -1070,7 +1070,7 @@ class CPU {
     this.SetNZFlag(tmp);
     if ((this.P & this.TFlag) == 0x00) this.A = tmp;
     else this.mem.Set(0x2000 | this.X, tmp);
-    this.ClearTFlag();
+    this.P &= ~this.TFlag;
   }
   EOR(address) {
     let data0;
@@ -1085,7 +1085,7 @@ class CPU {
     this.SetNZFlag(tmp);
     if ((this.P & this.TFlag) == 0x00) this.A = tmp;
     else this.mem.Set(0x2000 | this.X, tmp);
-    this.ClearTFlag();
+    this.P &= ~this.TFlag;
   }
   ORA(address) {
     let data0;
@@ -1100,41 +1100,41 @@ class CPU {
     this.SetNZFlag(tmp);
     if ((this.P & this.TFlag) == 0x00) this.A = tmp;
     else this.mem.Set(0x2000 | this.X, tmp);
-    this.ClearTFlag();
+    this.P &= ~this.TFlag;
   }
   ASL(data) {
     data <<= 1;
-    if (data > 0xff) this.SetCFlag();
-    else this.ClearCFlag();
+    if (data > 0xff) this.P |= this.CFlag;
+    else this.P &= ~this.CFlag;
     data &= 0xff;
     this.SetNZFlag(data);
-    this.ClearTFlag();
+    this.P &= ~this.TFlag;
     return data;
   }
   LSR(data) {
-    if ((data & 0x01) == 0x01) this.SetCFlag();
-    else this.ClearCFlag();
+    if ((data & 0x01) == 0x01) this.P |= this.CFlag;
+    else this.P &= ~this.CFlag;
     data >>= 1;
     this.SetNZFlag(data);
-    this.ClearTFlag();
+    this.P &= ~this.TFlag;
     return data;
   }
   ROL(data) {
     data = (data << 1) | (this.P & 0x01);
-    if (data > 0xff) this.SetCFlag();
-    else this.ClearCFlag();
+    if (data > 0xff) this.P |= this.CFlag;
+    else this.P &= ~this.CFlag;
     data &= 0xff;
     this.SetNZFlag(data);
-    this.ClearTFlag();
+    this.P &= ~this.TFlag;
     return data;
   }
   ROR(data) {
     let tmp = this.P & this.CFlag;
-    if ((data & 0x01) == 0x01) this.SetCFlag();
-    else this.ClearCFlag();
+    if ((data & 0x01) == 0x01) this.P |= this.CFlag;
+    else this.P &= ~this.CFlag;
     data = (data >> 1) | (tmp << 7);
     this.SetNZFlag(data);
-    this.ClearTFlag();
+    this.P &= ~this.TFlag;
     return data;
   }
   BBRi(bit) {
@@ -1148,7 +1148,7 @@ class CPU {
     this.Branch(tmp == 1, 2);
   }
   Branch(status, adr) {
-    this.ClearTFlag();
+    this.P &= ~this.TFlag;
     if (status) {
       let tmp = this.mem.Get(this.PC + adr);
       if (tmp >= 0x80) tmp |= 0xff00;
@@ -1158,21 +1158,21 @@ class CPU {
   }
   Compare(data0, data1) {
     data0 -= this.mem.Get(data1);
-    if (data0 < 0) this.ClearCFlag();
-    else this.SetCFlag();
-    this.ClearTFlag();
+    if (data0 < 0) this.P &= ~this.CFlag;
+    else this.P |= this.CFlag;
+    this.P &= ~this.TFlag;
     this.SetNZFlag(data0 & 0xff);
   }
   Decrement(data) {
     data = (data - 1) & 0xff;
     this.SetNZFlag(data);
-    this.ClearTFlag();
+    this.P &= ~this.TFlag;
     return data;
   }
   Increment(data) {
     data = (data + 1) & 0xff;
     this.SetNZFlag(data);
-    this.ClearTFlag();
+    this.P &= ~this.TFlag;
     return data;
   }
   Push(data) {
@@ -1186,19 +1186,19 @@ class CPU {
   RMBi(bit) {
     let address = this.ZP();
     this.mem.Set(address, this.mem.Get(address) & ~(0x01 << bit));
-    this.ClearTFlag();
+    this.P &= ~this.TFlag;
   }
   SMBi(bit) {
     let address = this.ZP();
     this.mem.Set(address, this.mem.Get(address) | (0x01 << bit));
-    this.ClearTFlag();
+    this.P &= ~this.TFlag;
   }
   BIT(address) {
     let tmp = this.mem.Get(address);
     this.SetNZFlag(this.A & tmp);
     this.P =
       (this.P & ~(this.NFlag | this.VFlag)) | (tmp & (this.NFlag | this.VFlag));
-    this.ClearTFlag();
+    this.P &= ~this.TFlag;
   }
   TST(address0, address1) {
     let tmp0 = this.mem.Get(address0);
@@ -1207,7 +1207,7 @@ class CPU {
     this.P =
       (this.P & ~(this.NFlag | this.VFlag)) |
       (tmp1 & (this.NFlag | this.VFlag));
-    this.ClearTFlag();
+    this.P &= ~this.TFlag;
   }
   TRB(address) {
     let tmp = this.mem.Get(address);
@@ -1216,7 +1216,7 @@ class CPU {
     this.SetNZFlag(res);
     this.P =
       (this.P & ~(this.NFlag | this.VFlag)) | (tmp & (this.NFlag | this.VFlag));
-    this.ClearTFlag();
+    this.P &= ~this.TFlag;
   }
   TSB(address) {
     let tmp = this.mem.Get(address);
@@ -1225,17 +1225,17 @@ class CPU {
     this.SetNZFlag(res);
     this.P =
       (this.P & ~(this.NFlag | this.VFlag)) | (tmp & (this.NFlag | this.VFlag));
-    this.ClearTFlag();
+    this.P &= ~this.TFlag;
   }
   Load(address) {
     let data = this.mem.Get(address);
     this.SetNZFlag(data);
-    this.ClearTFlag();
+    this.P &= ~this.TFlag;
     return data;
   }
   Store(address, data) {
     this.mem.Set(address, data);
-    this.ClearTFlag();
+    this.P &= ~this.TFlag;
   }
   ZP() {
     return 0x2000 | this.mem.Get(this.PC + 1);
@@ -1276,42 +1276,6 @@ class CPU {
   }
   SetNZFlag(data) {
     this.P = (this.P & ~(this.NFlag | this.ZFlag)) | this.NZCacheTable[data];
-  }
-  SetVFlag() {
-    this.P |= this.VFlag;
-  }
-  ClearVFlag() {
-    this.P &= ~this.VFlag;
-  }
-  SetTFlag() {
-    this.P |= this.TFlag;
-  }
-  ClearTFlag() {
-    this.P &= ~this.TFlag;
-  }
-  SetBFlag() {
-    this.P |= this.BFlag;
-  }
-  ClearBFlag() {
-    this.P &= ~this.BFlag;
-  }
-  SetDFlag() {
-    this.P |= this.DFlag;
-  }
-  ClearDFlag() {
-    this.P &= ~this.DFlag;
-  }
-  SetIFlag() {
-    this.P |= this.IFlag;
-  }
-  ClearIFlag() {
-    this.P &= ~this.IFlag;
-  }
-  SetCFlag() {
-    this.P |= this.CFlag;
-  }
-  ClearCFlag() {
-    this.P &= ~this.CFlag;
   }
   PCH() {
     return this.PC >> 8;
